@@ -10,8 +10,9 @@ function App() {
     <>
     <Router>
         <Routes>
-          <Route path='*' element={<NotFound/>}/>
           <Route index element={<Home/>}/>
+          <Route path='*' element={<NotFound/>}/>
+          
         </Routes>
     </Router>
     </>

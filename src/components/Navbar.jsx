@@ -33,7 +33,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
             
             <div className="items-center flex space-x-2 cursor-pointer" onClick={() => navigate("/")}>
-              <img className='h-14 w-auto object-contain mt-1' src="src/imgs/LocalFix logo.png" alt="logo" />
+              <img className='h-14 w-auto object-contain mt-1' src="src/imgs/LocalFixLOGO[1].png" alt="logo" />
               <h1 className="text-white text-[25px] font-bold tracking-wide">
                 {brandName}
               </h1>
