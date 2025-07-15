@@ -19,7 +19,7 @@ export default function ServicesSection() {
     }
 
   return (
-    <section className='h-auto bg-blue-50'>
+    <section className='h-auto bg-blue-50' id='services'>
         <h1 className='text-blue-950 md:text-6xl text-[40px] text-center font-bold md:py-5 py-2'>Our Services</h1>
         <p className='text-center md:text-2xl text-lg text-blue-950 font-medium px-2'>From routine maintainance to complex installations, our verified professionals handle it all.</p>
 
