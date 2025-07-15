@@ -66,7 +66,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Full Screen Mobile Menu */}
       <div className={`md:hidden fixed inset-0 z-40 transition-all duration-300 ease-in-out ${
         isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       }`}>
