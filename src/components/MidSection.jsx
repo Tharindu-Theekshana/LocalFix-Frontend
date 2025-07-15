@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { useState } from "react";
+import { motion, AnimatePresence } from 'framer-motion'
 
 const reviews = [
   {
@@ -22,8 +22,28 @@ const reviews = [
     location: "Galle : Carpentry",
   },
 ];
+
 export default function MidSection() {
   const [current, setCurrent] = useState(0);
+  const intervalRef = useRef(null);
+
+  const startAutoSlide = () => {
+    intervalRef.current = setInterval(() => {
+      setCurrent((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
+    }, 4000); // 4 seconds
+  };
+
+  const stopAutoSlide = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    startAutoSlide();
+    return () => stopAutoSlide(); // Clean up on unmount
+  }, []);
 
   const prevReview = () => {
     setCurrent((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
@@ -32,6 +52,7 @@ export default function MidSection() {
   const nextReview = () => {
     setCurrent((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
   };
+
   return (
     <section className= "bg-blue-50 w-full px-4 sm:px-10 py-12">
         <div className="flex flex-col items-center justify-center mb-4 bg-blue-50 ">
@@ -143,48 +164,46 @@ export default function MidSection() {
         <span className = "text-blue-950 text-3xl font-bold">What Our Customers Say</span>
         <span className="text-2xl mt-4 text-blue-950 font-medium">Join thousoands of satisfild customer who trust localfix</span>
       </div>
-     <div className="flex items-center justify-center gap-6 bg-blue-50 py-10">
-      {/* Left Arrow */}
-      <button onClick={prevReview}>
-        <img className="h-[55px] w-[55px] active:scale-100 hover:scale-105" src="src/imgs/left-arrow.png" alt="previous" />
-      </button>
-
-
-      
       <div className="flex flex-col items-center justify-center bg-blue-50">
-      {/* Review Card */}
-      <div className="flex flex-col items-center justify-center bg-blue-50 space-y-6 relative ">
-        <div className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px] mt-[20px] h-[250px]">
+        {/* Review Card */}
+        <AnimatePresence mode="wait">
+        <motion.div
+          key={current}
+          initial={{ opacity: 0, x: 20, scale: 1 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, x: -20, scale: 0.95 }}
+          transition={{
+            duration: 0.6,
+            ease: "easeInOut"
+          }}
+          className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px] mt-[20px] h-[250px] relative" onMouseEnter={stopAutoSlide} onMouseLeave={startAutoSlide}>
           <span>{reviews[current].stars}</span>
           <span className="text-center text-[17px] font-bold mt-[30px]">
             {reviews[current].text}
           </span>
-          <span className="text-center text-[17px] font-bold mt-[30px] absolute bottom-[30px]">{reviews[current].name}</span>
-          <span className="absolute bottom-[10px]" >{reviews[current].location}</span>
+          <span className="text-center text-[17px] font-bold absolute bottom-[30px]">
+            {reviews[current].name}
+          </span>
+          <span className="absolute bottom-[10px]">
+            {reviews[current].location}
+          </span>
+        </motion.div>
+      </AnimatePresence>
+
+        {/* dot navigation */}
+        <div className="flex items-center justify-center gap-3 h-[50px] mt-4">
+          {reviews.map((_, index) => (
+            <div
+              key={index}
+              className={`rounded-full transition-all duration-300 ${
+                index === current
+                  ? 'w-4 h-4 bg-blue-950'
+                  : 'w-2.5 h-2.5 bg-blue-950 opacity-70'
+              }`}
+            ></div>
+          ))}
         </div>
       </div>
-      
-      {/* dot navigation */}
-      <div className="flex items-center justify-center gap-3 h-[50px]">
-        {reviews.map((_, index) => (
-          <div
-            key={index}
-            className={`rounded-full transition-all duration-300 ${
-              index === current
-                ? 'w-4 h-4 bg-blue-950'
-                : 'w-2.5 h-2.5 bg-blue-950 opacity-70'
-            }`}
-          ></div>
-        ))}
-      </div>
-    </div>
-
-
-      {/* Right Arrow */}
-      <button onClick={nextReview} className="w-[60px] h-[60px] active:scale-100 hover:scale-105">
-        <img className="h-[55px] w-[55px] " src="src/imgs/right-arrow.png" alt="next" />
-      </button>
-    </div>
 
 
       <div className="flex flex-col items-center justify-center bg-blue-50">
