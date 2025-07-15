@@ -13,8 +13,7 @@ export default function HeroSection() {
     'Painter',
     'Welder',
     'Automobile',
-    'Cleaner',
-    'Gardener'
+    'Cleaner'
   ];
 
   
