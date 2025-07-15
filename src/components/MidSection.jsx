@@ -83,15 +83,17 @@ export default function MidSection() {
 
       <div className="flex flex-col items-center justify-center mt-[50px] bg-blue-50 space-y-10 pb-10">
         {/* Row 1 */}
-        <div className="flex flex-row gap-[15%] justify-center px-10">
+        <div className="flex flex-row gap-[12%] justify-center px-10">
           <div className="bg-white p-6 rounded-2xl flex flex-col items-center  hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px]">
-            <span className="font-bold text-[20px]">👤 Verified Professionals</span>
+            <img className="h-16 w-auto object-contain" src="src/imgs/Professionals.jpg" alt="icon" />
+            <span className="font-bold text-[20px]">Verified Professionals</span>
             <span className="text-center text-[17px] font-medium pt-[25px]">
               All service providers are identity-verified and approved before they appear on the platform.
             </span>
           </div>
           <div className="bg-white p-6 rounded-2xl flex flex-col items-center  hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px]">
-            <span className="font-bold text-[20px]">🔖 Easy Booking</span>
+            <img className="h-16 w-auto object-contain" src="src/imgs/book.jpg" alt="icon" />
+            <span className="font-bold text-[20px]">Easy Booking</span>
             <span className="text-center text-[17px] font-medium pt-[25px]">
               Book trusted workers in just a few clicks - no need for phone calls or long wait times.
             </span>
@@ -99,15 +101,17 @@ export default function MidSection() {
         </div>
 
         {/* Row 2 */}
-        <div className="flex flex-row gap-[15%] justify-center px-10">
+        <div className="flex flex-row gap-[12%] justify-center px-10">
           <div className="bg-white p-6 rounded-2xl flex flex-col items-center  hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px]">
-            <span className="font-bold text-[20px]">💲 Transparent Pricing</span>
+            <img className="h-16 w-auto object-contain" src="src/imgs/price.png" alt="icon" />
+            <span className="font-bold text-[20px]">Transparent Pricing</span>
             <span className="text-center text-[17px] font-medium pt-[25px]">
               See clear service rates and details upfront before making a booking.
             </span>
           </div>
           <div className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px]">
-            <span className="font-bold text-[20px]">🙋‍♂️ Customer Reviews & Portfolios</span>
+            <img className="h-16 w-auto object-contain" src="src/imgs/reviews.jpg" alt="icon" />
+            <span className="font-bold text-[20px]">Customer Reviews & Portfolios</span>
             <span className="text-center text-[17px] font-medium pt-[25px]">
               Check real reviews and previous work photos to hire with confidence.
             </span>
@@ -115,15 +119,17 @@ export default function MidSection() {
         </div>
 
         {/* Row 3 */}
-        <div className="flex flex-row gap-[15%] justify-center">
+        <div className="flex flex-row gap-[12%] justify-center">
           <div className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px]">
-            <span className="font-bold text-[20px]">✅ Local and Fast</span>
+            <img className="h-16 w-auto object-contain" src="src/imgs/perfect.webp" alt="icon" />
+            <span className="font-bold text-[20px]">Local and Fast</span>
             <span className="text-center text-[17px] font-medium pt-[25px]">
               Get matched with skilled workers near you - perfect for urgent jobs.
             </span>
           </div>
           <div className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px]">
-            <span className="font-bold text-[20px]">✨ Empowering Local Talent</span>
+            <img className="h-16 w-auto object-contain" src="src/imgs/help.png" alt="icon" />
+            <span className="font-bold text-[20px]">Empowering Local Talent</span>
             <span className="text-center text-[17px] font-medium pt-[25px]">
               We help independent professionals grow their visibility and find consistent work.
             </span>
@@ -148,7 +154,7 @@ export default function MidSection() {
       <div className="flex flex-col items-center justify-center bg-blue-50">
       {/* Review Card */}
       <div className="flex flex-col items-center justify-center bg-blue-50 space-y-6 relative ">
-        <div className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[400px] mt-[20px] h-[250px]">
+        <div className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px] mt-[20px] h-[250px]">
           <span>{reviews[current].stars}</span>
           <span className="text-center text-[17px] font-bold mt-[30px]">
             {reviews[current].text}
