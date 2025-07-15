@@ -1,8 +1,39 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { useState } from "react";
 
+const reviews = [
+  {
+    stars: "⭐⭐⭐⭐⭐",
+    text: `"The plumber I hired fixed my kitchen pipes perfectly. Great platform to find reliable workers in my area."`,
+    name: "Saman Perera",
+    location: "Kandy : Plumbing",
+  },
+  {
+    stars: "⭐⭐⭐⭐",
+    text: `"The electrician was punctual and professional. Highly recommend LocalFix!"`,
+    name: "Nirosha Fernando",
+    location: "Colombo : Electrical",
+  },
+  {
+    stars: "⭐⭐⭐⭐⭐",
+    text: `"LocalFix helped me find a great carpenter. Clean work and on time!"`,
+    name: "Dilshan Madushanka",
+    location: "Galle : Carpentry",
+  },
+];
 export default function MidSection() {
+  const [current, setCurrent] = useState(0);
+
+  const prevReview = () => {
+    setCurrent((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
+  };
+
+  const nextReview = () => {
+    setCurrent((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
+  };
   return (
-    <section className= "bg-blue-50 h-screen w-screen">
+    <section className= "bg-blue-50 w-[100%]">
         <div className="flex flex-col items-center justify-center mb-4 bg-blue-50 ">
           <span className = "text-blue-950 text-3xl font-bold">how LocalFix works</span>
           <span className="text-2xl mt-4 text-blue-950 font-medium">Simple,fast, and reliable - get the job done in 3 easy steps.</span>
@@ -102,12 +133,64 @@ export default function MidSection() {
 
             
 
-      <div className="flex flex-col items-center justify-center mb-4 bg-blue-50 ">
+      <div className="flex flex-col items-center justify-center bg-blue-50 ">
         <span className = "text-blue-950 text-3xl font-bold">What Our Customers Say</span>
         <span className="text-2xl mt-4 text-blue-950 font-medium">Join thousoands of satisfild customer who trust localfix</span>
       </div>
-        
-        
+     <div className="flex items-center justify-center gap-6 bg-blue-50 py-10">
+      {/* Left Arrow */}
+      <button onClick={prevReview}>
+        <img className="h-[55px] w-[55px] active:scale-100 hover:scale-105" src="src/imgs/left-arrow.png" alt="previous" />
+      </button>
+
+
+      
+      <div className="flex flex-col items-center justify-center bg-blue-50">
+      {/* Review Card */}
+      <div className="flex flex-col items-center justify-center bg-blue-50 space-y-6 relative ">
+        <div className="bg-white p-6 rounded-2xl shadow-lg flex flex-col items-center border-blue-900 border-2 w-[400px] mt-[20px] h-[250px]">
+          <span>{reviews[current].stars}</span>
+          <span className="text-center text-[17px] font-bold mt-[30px]">
+            {reviews[current].text}
+          </span>
+          <span className="text-center text-[17px] font-bold mt-[30px] absolute bottom-[30px]">{reviews[current].name}</span>
+          <span className="absolute bottom-[10px]" >{reviews[current].location}</span>
+        </div>
+      </div>
+      
+      {/* dot navigation */}
+      <div className="flex items-center justify-center gap-3 h-[50px]">
+        {reviews.map((_, index) => (
+          <div
+            key={index}
+            className={`rounded-full transition-all duration-300 ${
+              index === current
+                ? 'w-4 h-4 bg-blue-950'
+                : 'w-2.5 h-2.5 bg-blue-950 opacity-70'
+            }`}
+          ></div>
+        ))}
+      </div>
+    </div>
+
+
+      {/* Right Arrow */}
+      <button onClick={nextReview} className="w-[60px] h-[60px] active:scale-100 hover:scale-105">
+        <img className="h-[55px] w-[55px] " src="src/imgs/right-arrow.png" alt="next" />
+      </button>
+    </div>
+
+
+      <div className="flex flex-col items-center justify-center bg-blue-50">
+        <span className = "text-blue-950 text-3xl font-bold">Ready to Get Started ?</span>
+        <span className="text-2xl mt-4 text-blue-950 font-medium">Join thousands of satisfied customers and skilled professionals on LocalFix today.</span>
+      </div>
+      
+      <div className="flex items-center justify-center bg-blue-50 mt-[30px] gap-[10%]">
+        <Link to="" className="font-medium w-[200px] h-[50px] bg-blue-700 text-white flex items-center justify-center mb-[30px] active:scale-98 hover:text-black hover:bg-white hover:scale-105 border-[3px] border-blue-700 duration-300 ">Find a professional</Link>
+        <Link to="" className="font-medium w-[200px] h-[50px] bg-red-700 text-blue-950 flex items-center justify-center  mb-[30px] active:scale-98 hover:text-white hover:bg-blue-600 hover:scale-105 duration-300"> Join as a worker</Link>
+      </div>
+
     </section>
   )
 }
