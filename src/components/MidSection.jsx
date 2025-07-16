@@ -156,17 +156,15 @@ export default function MidSection() {
         </p>
       </div>
 
-      <div className="flex flex-col sm:flex-row items-center justify-center mt-10 gap-4">
+      <div className="flex sm:flex-row items-center justify-center mt-10 gap-4">
         <Link
           to=""
-          className="font-medium w-full sm:w-[200px] h-[50px] bg-blue-950 text-white flex items-center justify-center rounded-md transition hover:text-black hover:bg-white shadow-md"
-        >
+          className="font-medium w-full sm:w-[200px] h-[50px] bg-blue-950 text-white flex items-center justify-center rounded-md transition hover:text-black hover:bg-white shadow-md mr-[10px] ml-[10px]">
           Find a professional
         </Link>
         <Link
           to=""
-          className="font-medium w-full sm:w-[200px] h-[50px] bg-white text-blue-950 flex items-center justify-center rounded-md transition hover:text-white hover:bg-red-700 shadow-md"
-        >
+          className="font-medium w-full sm:w-[200px] h-[50px] bg-white text-blue-950 flex items-center justify-center rounded-md transition hover:text-white hover:bg-red-700 shadow-md mr-[10px] ml-[10px]">
           Join as a worker
         </Link>
       </div>
