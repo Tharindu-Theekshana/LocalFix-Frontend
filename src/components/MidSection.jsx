@@ -157,14 +157,12 @@ export default function MidSection() {
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-center mt-10 gap-4">
-        <Link
-          to=""
+        <button
           className="font-medium w-full sm:w-[200px] h-[50px] bg-blue-950 text-white flex items-center justify-center rounded-md transition hover:text-black hover:bg-white shadow-md"
         >
           Find a professional
-        </Link>
-        <Link
-          to=""
+        </button>
+        <button
           className="font-medium w-full sm:w-[200px] h-[50px] bg-white text-blue-950 flex items-center justify-center rounded-md transition hover:text-white hover:bg-red-700 shadow-md"
         >
           Join as a worker
