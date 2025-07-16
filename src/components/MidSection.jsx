@@ -66,7 +66,7 @@ export default function MidSection() {
           img: "src/imgs/Done-Icon.png",
           desc: "Your professional arrives on time, completes the work, and you pay securely through the platform."
         }].map((step, idx) => (
-          <div key={idx} className="bg-white w-full sm:w-[300px] md:w-[340px] lg:w-[360px] p-6 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300 shadow-md">
+          <div key={idx} className="bg-white w-full sm:w-[300px] md:w-[340px] lg:w-[360px] p-6 rounded-2xl flex flex-col items-center justify-center hover:scale-102 transition duration-300 shadow-md">
             <h3 className="font-bold text-[20px] text-center">{step.title}</h3>
             <img className="h-14 mt-2" src={step.img} alt="icon" />
             <p className="text-center text-[16px] font-medium mt-4">{step.desc}</p>
@@ -107,7 +107,7 @@ export default function MidSection() {
           title: "Empowering Local Talent",
           desc: "We help independent professionals grow their visibility and find consistent work."
         }].map((card, idx) => (
-          <div key={idx} className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-105 transition duration-300 shadow-md">
+          <div key={idx} className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-102 transition duration-300 shadow-md">
             <img className="h-16" src={card.img} alt="icon" />
             <h3 className="font-bold text-[20px] mt-4 text-center">{card.title}</h3>
             <p className="text-center text-[16px] font-medium pt-4">{card.desc}</p>
@@ -128,7 +128,7 @@ export default function MidSection() {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: -20, scale: 0.95 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-105 transition duration-300 shadow-md w-[90%] md:w-[500px] h-[280px]"
+            className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-103 transition duration-300 shadow-md w-[90%] md:w-[500px] h-[280px]"
           >
             <span>{reviews[current].stars}</span>
             <p className="text-center text-[17px] font-bold mt-6">{reviews[current].text}</p>
@@ -159,12 +159,12 @@ export default function MidSection() {
       <div className="flex sm:flex-row items-center justify-center mt-10 gap-4">
         <Link
           to=""
-          className="font-medium w-full sm:w-[200px] h-[50px] bg-blue-950 text-white flex items-center justify-center rounded-md transition hover:text-black hover:bg-white shadow-md mr-[10px] ml-[10px]">
+          className="font-medium w-full sm:w-[200px] h-[50px] bg-blue-950 text-white flex items-center justify-center rounded-md transition hover:text-black hover:bg-white shadow-md mr-[10px] ml-[10px] active:scale-98">
           Find a professional
         </Link>
         <Link
           to=""
-          className="font-medium w-full sm:w-[200px] h-[50px] bg-white text-blue-950 flex items-center justify-center rounded-md transition hover:text-white hover:bg-red-700 shadow-md mr-[10px] ml-[10px]">
+          className="font-medium w-full sm:w-[200px] h-[50px] bg-white text-blue-950 flex items-center justify-center rounded-md transition hover:text-white hover:bg-red-700 shadow-md mr-[10px] ml-[10px] active:scale-98">
           Join as a worker
         </Link>
       </div>
