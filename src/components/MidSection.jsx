@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const reviews = [
   {
@@ -30,7 +30,7 @@ export default function MidSection() {
   const startAutoSlide = () => {
     intervalRef.current = setInterval(() => {
       setCurrent((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
-    }, 4000); // 4 seconds
+    }, 4000);
   };
 
   const stopAutoSlide = () => {
@@ -42,180 +42,134 @@ export default function MidSection() {
 
   useEffect(() => {
     startAutoSlide();
-    return () => stopAutoSlide(); // Clean up on unmount
+    return () => stopAutoSlide();
   }, []);
 
-  const prevReview = () => {
-    setCurrent((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
-  };
-
-  const nextReview = () => {
-    setCurrent((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
-  };
-
   return (
-    <section className= "bg-blue-50 w-full px-4 sm:px-10 py-12">
-        <div className="flex flex-col items-center justify-center mb-4 bg-blue-50 ">
-          <span className = "text-blue-950 text-3xl font-bold">how LocalFix works</span>
-          <span className="text-2xl mt-4 text-blue-950 font-medium">Simple,fast, and reliable - get the job done in 3 easy steps.</span>
-        </div>
-        <div className="flex items-center justify-center gap-4 mt-8 p-10">
-          <div className="bg-white w-[1100px] h-[250px] p-6 rounded-2xl flex-col items-center justify-center hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md flex" > 
-            <span className="font-bold text-[20px]">1. Search & Browes</span>
-            <img className="h-14 w-auto object-contain" src="src/imgs/searchIcon.png" alt="search" />
-            <span className="text-center text-[17px] font-medium">Choose your preferred date
-                  and time, provide job details,
-                  and send your booking
-                  request. Get instant
-                  confirmation from the
-                  professional.
-            </span>
-          </div>
-          <div className="bg-white w-[1100px] h-[250px] p-6 rounded-2xl flex flex-col items-center justify-center  hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md" >
-            <span className="font-bold text-[20px]">2. Book $ Schedule</span>
-            <img className="h-14 w-auto object-contain" src="src/imgs/Schedule-Icon.png" alt="book" />
-            <span className="text-center text-[17px] font-medium">Search for the service you
-                  need and browse through
-                  verified professionals in your
-                  area. Compare ratings,
-                  reviews, and pricing to find
-                  the perfect match.
-            </span>
-          </div>
-          <div className="bg-white w-[1100px] h-[250px] p-6 rounded-2xl flex flex-col items-center justify-center  hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md" >
-            <span className="font-bold text-[20px]">3. Get it done</span>
-            <img className="h-14 w-auto object-contain" src="src/imgs/Done-Icon.png" alt="done" />
-            <span className="text-center text-[17px] font-medium">Your professional arrives on
-                  time, completes the work to
-                  your satisfactions, and you
-                  pay security through the
-                  platform. Leave a review when
-                  done!
-            </span>
-          </div>
-        </div>
-
-      <div className="flex flex-col items-center justify-center mb-4 bg-blue-50">
-        <span className="text-blue-950 text-3xl font-bold">Why choose LocalFix</span>
-        <span className="text-2xl mt-4 text-blue-950 font-medium">
-          We make finding and hiring skilled professionals simple and reliable..
-        </span>
+    <section className="bg-blue-50 w-full px-4 sm:px-6 md:px-10 py-12">
+      <div className="text-center mb-10">
+        <h2 className="text-blue-950 text-3xl font-bold">how LocalFix works</h2>
+        <p className="text-2xl mt-4 text-blue-950 font-medium">Simple, fast, and reliable - get the job done in 3 easy steps.</p>
       </div>
 
-      <div className="flex flex-col items-center justify-center mt-[50px] bg-blue-50 space-y-10 pb-10">
-        {/* Row 1 */}
-        <div className="flex flex-row gap-[12%] justify-center px-10">
-          <div className="bg-white p-6 rounded-2xl flex flex-col items-center  hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px]">
-            <img className="h-16 w-auto object-contain" src="src/imgs/Professionals.jpg" alt="icon" />
-            <span className="font-bold text-[20px]">Verified Professionals</span>
-            <span className="text-center text-[17px] font-medium pt-[25px]">
-              All service providers are identity-verified and approved before they appear on the platform.
-            </span>
+      <div className="flex flex-wrap justify-center gap-6">
+        {[{
+          title: "1. Search & Browse",
+          img: "src/imgs/searchIcon.png",
+          desc: "Choose your preferred date and time, provide job details, and send your booking request."
+        }, {
+          title: "2. Book & Schedule",
+          img: "src/imgs/Schedule-Icon.png",
+          desc: "Search for the service you need and browse verified professionals in your area. Compare ratings, reviews, and pricing."
+        }, {
+          title: "3. Get it done",
+          img: "src/imgs/Done-Icon.png",
+          desc: "Your professional arrives on time, completes the work, and you pay securely through the platform."
+        }].map((step, idx) => (
+          <div key={idx} className="bg-white w-full sm:w-[300px] md:w-[340px] lg:w-[360px] p-6 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300 shadow-md">
+            <h3 className="font-bold text-[20px] text-center">{step.title}</h3>
+            <img className="h-14 mt-2" src={step.img} alt="icon" />
+            <p className="text-center text-[16px] font-medium mt-4">{step.desc}</p>
           </div>
-          <div className="bg-white p-6 rounded-2xl flex flex-col items-center  hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px]">
-            <img className="h-16 w-auto object-contain" src="src/imgs/book.jpg" alt="icon" />
-            <span className="font-bold text-[20px]">Easy Booking</span>
-            <span className="text-center text-[17px] font-medium pt-[25px]">
-              Book trusted workers in just a few clicks - no need for phone calls or long wait times.
-            </span>
-          </div>
-        </div>
-
-        {/* Row 2 */}
-        <div className="flex flex-row gap-[12%] justify-center px-10">
-          <div className="bg-white p-6 rounded-2xl flex flex-col items-center  hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px]">
-            <img className="h-16 w-auto object-contain" src="src/imgs/price.png" alt="icon" />
-            <span className="font-bold text-[20px]">Transparent Pricing</span>
-            <span className="text-center text-[17px] font-medium pt-[25px]">
-              See clear service rates and details upfront before making a booking.
-            </span>
-          </div>
-          <div className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px]">
-            <img className="h-16 w-auto object-contain" src="src/imgs/reviews.jpg" alt="icon" />
-            <span className="font-bold text-[20px]">Customer Reviews & Portfolios</span>
-            <span className="text-center text-[17px] font-medium pt-[25px]">
-              Check real reviews and previous work photos to hire with confidence.
-            </span>
-          </div>
-        </div>
-
-        {/* Row 3 */}
-        <div className="flex flex-row gap-[12%] justify-center">
-          <div className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px]">
-            <img className="h-16 w-auto object-contain" src="src/imgs/perfect.webp" alt="icon" />
-            <span className="font-bold text-[20px]">Local and Fast</span>
-            <span className="text-center text-[17px] font-medium pt-[25px]">
-              Get matched with skilled workers near you - perfect for urgent jobs.
-            </span>
-          </div>
-          <div className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px]">
-            <img className="h-16 w-auto object-contain" src="src/imgs/help.png" alt="icon" />
-            <span className="font-bold text-[20px]">Empowering Local Talent</span>
-            <span className="text-center text-[17px] font-medium pt-[25px]">
-              We help independent professionals grow their visibility and find consistent work.
-            </span>
-          </div>
-        </div>
+        ))}
       </div>
 
-            
-
-      <div className="flex flex-col items-center justify-center bg-blue-50 ">
-        <span className = "text-blue-950 text-3xl font-bold">What Our Customers Say</span>
-        <span className="text-2xl mt-4 text-blue-950 font-medium">Join thousoands of satisfild customer who trust localfix</span>
+      <div className="text-center my-16">
+        <h2 className="text-blue-950 text-3xl font-bold">Why choose LocalFix</h2>
+        <p className="text-2xl mt-4 text-blue-950 font-medium">
+          We make finding and hiring skilled professionals simple and reliable.
+        </p>
       </div>
-      <div className="flex flex-col items-center justify-center bg-blue-50">
-        {/* Review Card */}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 px-4 md:px-10">
+        {[{
+          img: "src/imgs/Professionals.jpg",
+          title: "Verified Professionals",
+          desc: "All service providers are identity-verified and approved before they appear on the platform."
+        }, {
+          img: "src/imgs/book.jpg",
+          title: "Easy Booking",
+          desc: "Book trusted workers in just a few clicks - no need for phone calls or long wait times."
+        }, {
+          img: "src/imgs/price.png",
+          title: "Transparent Pricing",
+          desc: "See clear service rates and details upfront before making a booking."
+        }, {
+          img: "src/imgs/reviews.jpg",
+          title: "Customer Reviews & Portfolios",
+          desc: "Check real reviews and previous work photos to hire with confidence."
+        }, {
+          img: "src/imgs/perfect.webp",
+          title: "Local and Fast",
+          desc: "Get matched with skilled workers near you - perfect for urgent jobs."
+        }, {
+          img: "src/imgs/help.png",
+          title: "Empowering Local Talent",
+          desc: "We help independent professionals grow their visibility and find consistent work."
+        }].map((card, idx) => (
+          <div key={idx} className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-105 transition duration-300 shadow-md">
+            <img className="h-16" src={card.img} alt="icon" />
+            <h3 className="font-bold text-[20px] mt-4 text-center">{card.title}</h3>
+            <p className="text-center text-[16px] font-medium pt-4">{card.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="text-center mt-20">
+        <h2 className="text-blue-950 text-3xl font-bold">What Our Customers Say</h2>
+        <p className="text-2xl mt-4 text-blue-950 font-medium">Join thousands of satisfied customers who trust LocalFix</p>
+      </div>
+
+      <div className="flex flex-col items-center justify-center mt-10" onMouseEnter={stopAutoSlide} onMouseLeave={startAutoSlide}>
         <AnimatePresence mode="wait">
-        <motion.div
-          key={current}
-          initial={{ opacity: 0, x: 20, scale: 1 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          exit={{ opacity: 0, x: -20, scale: 0.95 }}
-          transition={{
-            duration: 0.6,
-            ease: "easeInOut"
-          }}
-          className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md w-[500px] mt-[20px] h-[250px] relative" onMouseEnter={stopAutoSlide} onMouseLeave={startAutoSlide}>
-          <span>{reviews[current].stars}</span>
-          <span className="text-center text-[17px] font-bold mt-[30px]">
-            {reviews[current].text}
-          </span>
-          <span className="text-center text-[17px] font-bold absolute bottom-[30px]">
-            {reviews[current].name}
-          </span>
-          <span className="absolute bottom-[10px]">
-            {reviews[current].location}
-          </span>
-        </motion.div>
-      </AnimatePresence>
+          <motion.div
+            key={current}
+            initial={{ opacity: 0, x: 20, scale: 1 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: -20, scale: 0.95 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-105 transition duration-300 shadow-md w-[90%] md:w-[500px] h-[280px]"
+          >
+            <span>{reviews[current].stars}</span>
+            <p className="text-center text-[17px] font-bold mt-6">{reviews[current].text}</p>
+            <p className="text-center text-[17px] font-bold mt-6">{reviews[current].name}</p>
+            <p className="text-[14px] mt-1">{reviews[current].location}</p>
+          </motion.div>
+        </AnimatePresence>
 
-        {/* dot navigation */}
         <div className="flex items-center justify-center gap-3 h-[50px] mt-4">
           {reviews.map((_, index) => (
             <div
               key={index}
               className={`rounded-full transition-all duration-300 ${
-                index === current
-                  ? 'w-4 h-4 bg-blue-950'
-                  : 'w-2.5 h-2.5 bg-blue-950 opacity-70'
+                index === current ? 'w-4 h-4 bg-blue-950' : 'w-2.5 h-2.5 bg-blue-950 opacity-70'
               }`}
             ></div>
           ))}
         </div>
       </div>
 
-
-      <div className="flex flex-col items-center justify-center bg-blue-50">
-        <span className = "text-blue-950 text-3xl font-bold">Ready to Get Started ?</span>
-        <span className="text-2xl mt-4 text-blue-950 font-medium">Join thousands of satisfied customers and skilled professionals on LocalFix today.</span>
-      </div>
-      
-      <div className="flex items-center justify-center bg-blue-50 mt-[30px] gap-[10%]">
-        <Link to="" className="font-medium w-[200px] h-[50px] bg-blue-950 text-white flex items-center justify-center mb-[30px] active:scale-98 hover:text-black hover:bg-white hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md rounded-[6px]">Find a professional</Link>
-        <Link to="" className="font-medium w-[200px] h-[50px] bg-white-700 text-blue-950 flex items-center justify-center  mb-[30px] active:scale-98 hover:text-white hover:bg-red-700 hover:scale-102 duration-300 hover:shadow-2xl border-none shadow-md rounded-[6px]"> Join as a worker</Link>
+      <div className="text-center mt-20">
+        <h2 className="text-blue-950 text-3xl font-bold">Ready to Get Started?</h2>
+        <p className="text-2xl mt-4 text-blue-950 font-medium">
+          Join thousands of satisfied customers and skilled professionals on LocalFix today.
+        </p>
       </div>
 
+      <div className="flex flex-col sm:flex-row items-center justify-center mt-10 gap-4">
+        <Link
+          to=""
+          className="font-medium w-full sm:w-[200px] h-[50px] bg-blue-950 text-white flex items-center justify-center rounded-md transition hover:text-black hover:bg-white shadow-md"
+        >
+          Find a professional
+        </Link>
+        <Link
+          to=""
+          className="font-medium w-full sm:w-[200px] h-[50px] bg-white text-blue-950 flex items-center justify-center rounded-md transition hover:text-white hover:bg-red-700 shadow-md"
+        >
+          Join as a worker
+        </Link>
+      </div>
     </section>
-  )
+  );
 }
