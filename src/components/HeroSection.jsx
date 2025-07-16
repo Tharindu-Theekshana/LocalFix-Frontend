@@ -23,7 +23,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className='relative h-screen pt-16 overflow-hidden'>
+    <section className='relative h-screen pt-16 overflow-hidden' id='home'>
       
       <div className='absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-slate-50'>
         

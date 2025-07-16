@@ -3,25 +3,30 @@ import React from 'react'
 export default function ServicesSection() {
 
     const services = [
-        {name: "Masons", img: 'src/imgs/2092841.png', description: "Professional masons with verified profiles"},
-        {name: "Plumbers", img: 'src/imgs/11098443.png', description: "Professional plumbers with verified profiles"},
-        {name: "Carpenters", img: 'src/imgs/17740437.png', description: "Professional carpenters with verified profiles"},
-        {name: "Electricians", img: 'src/imgs/10076841.png', description: "Professional electricians with verified profiles"},
-        {name: "Painters", img: 'src/imgs/4720286.png', description: "Professional painters with verified profiles"},
-        {name: "Welding", img: 'src/imgs/16083173.png', description: "Professional welders with verified profiles"},
-        {name: "Cleaners", img: 'src/imgs/9926109.png', description: "Professional cleaners with verified profiles"},
-        {name: "Automobile", img: 'src/imgs/16108770.png', description: "Professional automobile workers with verified profiles"},
+        {name: "Masons", img: 'src/imgs/2092841.png', description: "Professional masons with verified profiles", value: "Mason"},
+        {name: "Plumbers", img: 'src/imgs/11098443.png', description: "Professional plumbers with verified profiles", value: "Plumber"},
+        {name: "Carpenters", img: 'src/imgs/17740437.png', description: "Professional carpenters with verified profiles", value: "Carpenter"},
+        {name: "Electricians", img: 'src/imgs/10076841.png', description: "Professional electricians with verified profiles", value: "Electrician"},
+        {name: "Painters", img: 'src/imgs/4720286.png', description: "Professional painters with verified profiles", value: "Painter"},
+        {name: "Welding", img: 'src/imgs/16083173.png', description: "Professional welders with verified profiles", value: "Welder"},
+        {name: "Cleaners", img: 'src/imgs/9926109.png', description: "Professional cleaners with verified profiles", value: "Cleaner"},
+        {name: "Automobile", img: 'src/imgs/16108770.png', description: "Professional automobile workers with verified profiles", value: "Automobile"},
         
     ];
 
+    const handleClick = (value) => {
+        console.log("click : ", value);
+    }
+
   return (
-    <section className='h-auto bg-blue-50'>
+    <section className='h-auto bg-blue-50' id='services'>
         <h1 className='text-blue-950 md:text-6xl text-[40px] text-center font-bold md:py-5 py-2'>Our Services</h1>
         <p className='text-center md:text-2xl text-lg text-blue-950 font-medium px-2'>From routine maintainance to complex installations, our verified professionals handle it all.</p>
 
         <div className='grid grid-cols-1 md:grid-cols-2 md:gap-8 gap-3 max-w-7xl mx-auto py-4 md:px-0 px-4'>
                     {services.map((service, index) => (
-                        <div 
+                        <div
+                            onClick={()=>handleClick(service.value)} 
                             key={index} 
                             className='group relative bg-white/80 backdrop-blur-sm  rounded-2xl md:p-8 p-4 flex shadow-md items-center md:gap-6 gap-4 hover:shadow-2xl transition-all duration-500 hover:scale-102 border border-white/30 hover:border-blue-200/50 cursor-pointer overflow-hidden'
                             style={{
