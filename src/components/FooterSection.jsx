@@ -3,9 +3,31 @@ import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 
 export default function FooterSection() {
 
-  const popularServices = ['Masons', 'Carpentry', 'Plumbing', 'Electrician', 'Painting', 'Welding', 'Cleaning', 'Automobile'];
-  const Getstarted = ['Find Workers', 'How It Works', 'Join as Worker '];
-  const QuickLinks = ['Home', 'Services', 'About Us', 'Contact'];
+  const popularServices = [
+        {name: "Masons", value: "Mason",},
+        {name: "Plumbers", value: "Plumber"},
+        {name: "Carpenters", value: "Carpenter"},
+        {name: "Electricians", value: "Electrician"},
+        {name: "Painters", value: "Painter"},
+        {name: "Welding", value: "Welder"},
+        {name: "Cleaners", value: "Cleaner"},
+        {name: "Automobile", value: "Automobile"},]
+  const Getstarted = [
+    {name: 'Find Workers', link: "#home"},
+    {name: 'How It Works', link: "#mid"},
+    {name: 'Join as Worker', link: ""}
+];
+  const QuickLinks = [
+    {name: 'Home', link:"#home"},
+    {name: 'Services', link:"#services"},
+    {name:'About Us', link: ""},
+    {name: 'Contact', link:""}
+];
+
+  const handleClick = (value) => {
+
+    console.log("clicked : ",value)
+  }
 
   return (
    <footer className="bg-blue-900 text-white px-6 py-12">
@@ -64,10 +86,11 @@ export default function FooterSection() {
           <div>
             <h3 className="font-semibold md:mb-3 mb-1 md:text-[20px] text-lg">Popular Services</h3>
             {popularServices.map((item) => (
-              <a
-                key={item} href="#" className="w-[80px] block text-white/80 hover:text-white hover:border-b-1 duration-300 transition">
-                {item}
-              </a>
+              <p
+                onClick={()=>handleClick(item.value)}
+                key={item} className="w-[80px] block text-white/80 hover:text-white hover:border-b-1 duration-300 transition">
+                {item.name}
+              </p>
             ))}
           </div>
 
@@ -76,8 +99,8 @@ export default function FooterSection() {
           <div>
             <h3 className="font-semibold mb-3 text-[18px]">Get started</h3>
             {Getstarted.map((item) => (
-              <a key={item} href="#" className="w-[112px] block text-white/80 hover:text-white hover:border-b-1 duration-300 transition">
-                {item}
+              <a key={item} href={item.link} className="w-[112px] block text-white/80 hover:text-white hover:border-b-1 duration-300 transition">
+                {item.name}
               </a>
             ))}
           </div>
@@ -86,8 +109,8 @@ export default function FooterSection() {
           <div>
             <h3 className="font-semibold mb-3 text-[18px]">Quick Links</h3>
             {QuickLinks.map((item) => (
-              <a key={item} href="#" className="w-[80px] block text-white/80 hover:text-white hover:border-b-1 duration-300 transition ">
-                {item}
+              <a key={item} href={item.link} className="w-[80px] block text-white/80 hover:text-white hover:border-b-1 duration-300 transition ">
+                {item.name}
               </a>
             ))}
           </div>

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const reviews = [
@@ -41,6 +41,8 @@ export default function MidSection() {
     }
   };
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     startAutoSlide();
     return () => stopAutoSlide();
@@ -67,10 +69,10 @@ export default function MidSection() {
           img: "src/imgs/Done-Icon.png",
           desc: "Your professional arrives on time, completes the work, and you pay securely through the platform."
         }].map((step, idx) => (
-          <div key={idx} className="bg-white w-full sm:w-[300px] md:w-[340px] lg:w-[360px] p-6 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300 shadow-md">
-            <h3 className="font-bold text-[20px] text-center">{step.title}</h3>
-            <img className="h-14 mt-2" src={step.img} alt="icon" />
-            <p className="text-center text-[16px] font-medium mt-4">{step.desc}</p>
+          <div key={idx} className="bg-white w-full md:py-10 sm:w-[300px] md:w-[410px]  p-6 rounded-2xl flex flex-col items-center justify-center hover:scale-103 transition duration-300 shadow-md">
+            <h3 className="font-bold md:text-2xl text-blue-950 text-lg text-center">{step.title}</h3>
+            <img className="h-14 mt-4 " src={step.img} alt="icon" />
+            <p className="text-center md:text-lg text-blue-950 text-sm font-medium mt-4">{step.desc}</p>
           </div>
         ))}
       </div>
@@ -108,7 +110,7 @@ export default function MidSection() {
           title: "Empowering Local Talent",
           desc: "We help independent professionals grow their visibility and find consistent work."
         }].map((card, idx) => (
-          <div key={idx} className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-105 transition duration-300 shadow-md">
+          <div key={idx} className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-103 transition duration-300 shadow-md">
             <img className="h-16" src={card.img} alt="icon" />
             <h3 className="font-bold text-2xl md:text-[28px] text-blue-950 mt-4 text-center">{card.title}</h3>
             <p className="text-center text-sm md:text-lg font-medium pt-4 text-blue-950">{card.desc}</p>
@@ -129,10 +131,10 @@ export default function MidSection() {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: -20, scale: 0.95 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-105 transition duration-300 shadow-md w-[90%] md:w-[500px] h-[280px]"
+            className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-103 transition duration-300 shadow-md w-[90%] md:w-[95%] md:py-15 h-auto"
           >
             <span>{reviews[current].stars}</span>
-            <p className="text-center md:text-[21px] text-lg font-medium mt-6">{reviews[current].text}</p>
+            <p className="text-center md:text-[21px] text-lg font-medium mt-6 ">{reviews[current].text}</p>
             <p className="text-center md:text-lg text-[16px] font-bold mt-6">{reviews[current].name}</p>
             <p className="md:text-[16px] text-sm  mt-1">{reviews[current].location}</p>
           </motion.div>
@@ -150,7 +152,7 @@ export default function MidSection() {
         </div>
       </div>
 
-      <div className="text-center md:mt-8 mt-5">
+      <div className="text-center md:mt-8 mt-4">
         <h2 className="text-blue-950 md:text-5xl text-[40px] font-bold">Ready to Get Started?</h2>
         <p className="md:text-2xl text-lg mt-4 text-blue-950 font-medium">
           Join thousands of satisfied customers and skilled professionals on LocalFix today.
@@ -158,13 +160,15 @@ export default function MidSection() {
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-center mt-10 gap-4">
-        <button
-          className="font-medium w-full sm:w-[200px] h-[50px] bg-blue-950 text-white flex items-center justify-center rounded-md transition hover:text-black hover:bg-white shadow-md"
+        <a
+        href='#home'
+          className="font-medium w-full sm:w-[200px] h-[50px] bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white flex items-center hover:scale-102 duration-300 justify-center rounded-lg transition hover:bg-white shadow-md"
         >
           Find a professional
-        </button>
+        </a>
         <button
-          className="font-medium w-full sm:w-[200px] h-[50px] bg-white text-blue-950 flex items-center justify-center rounded-md transition hover:text-white hover:bg-red-700 shadow-md"
+        onClick={()=>{}}
+          className="font-medium w-full sm:w-[200px] h-[50px] bg-white text-blue-950 flex items-center justify-center rounded-lg transition hover:scale-102 duration-300 border border-blue-600 hover:border-blue-700 shadow-md"
         >
           Join as a worker
         </button>
@@ -172,3 +176,4 @@ export default function MidSection() {
     </section>
   );
 
+ }

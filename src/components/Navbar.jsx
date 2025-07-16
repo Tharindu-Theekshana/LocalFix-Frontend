@@ -8,7 +8,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const brandName = "LocalFix";
   const navLinks = [
-    { name: "Home", href: "#home" },
+    { name: "Home", href: "/" },
     { name: "Services", href: "#services" },
     { name: "Add My Service", href: "#services" },
     { name: "Contact", href: "#contact"},

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router';
 
 export default function ServicesSection() {
 
@@ -14,8 +15,11 @@ export default function ServicesSection() {
         
     ];
 
+    const navigate = useNavigate();
+
     const handleClick = (value) => {
         console.log("click : ", value);
+        navigate('/profiles', {state: {value}})
     }
 
   return (
