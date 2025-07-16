@@ -30,7 +30,7 @@ export default function MidSection() {
   const startAutoSlide = () => {
     intervalRef.current = setInterval(() => {
       setCurrent((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
-    }, 4000);
+    }, 3000);
   };
 
   const stopAutoSlide = () => {
@@ -46,10 +46,10 @@ export default function MidSection() {
   }, []);
 
   return (
-    <section className="bg-blue-50 w-full px-4 sm:px-6 md:px-10 py-12">
+    <section className="bg-blue-50 w-full px-4 sm:px-6 md:px-10 py-12" id='mid'>
       <div className="text-center mb-10">
-        <h2 className="text-blue-950 text-3xl font-bold">how LocalFix works</h2>
-        <p className="text-2xl mt-4 text-blue-950 font-medium">Simple, fast, and reliable - get the job done in 3 easy steps.</p>
+        <h2 className="text-blue-950 md:text-5xl text-[40px] font-bold">how LocalFix works</h2>
+        <p className="md:text-2xl text-lg md:mt-3 mt-1 text-blue-950 font-medium">Simple, fast, and reliable - get the job done in 3 easy steps.</p>
       </div>
 
       <div className="flex flex-wrap justify-center gap-6">
@@ -66,22 +66,22 @@ export default function MidSection() {
           img: "src/imgs/Done-Icon.png",
           desc: "Your professional arrives on time, completes the work, and you pay securely through the platform."
         }].map((step, idx) => (
-          <div key={idx} className="bg-white w-full sm:w-[300px] md:w-[340px] lg:w-[360px] p-6 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300 shadow-md">
-            <h3 className="font-bold text-[20px] text-center">{step.title}</h3>
-            <img className="h-14 mt-2" src={step.img} alt="icon" />
-            <p className="text-center text-[16px] font-medium mt-4">{step.desc}</p>
+          <div key={idx} className="bg-white w-full px-3 sm:w-[300px] md:w-[410px] p-7 rounded-2xl flex flex-col items-center justify-center hover:scale-103 transition duration-300 shadow-md">
+            <h3 className="font-bold text-2xl md:text-[28px] text-center text-blue-950">{step.title}</h3>
+            <img className="h-14 mt-3" src={step.img} alt="icon" />
+            <p className="text-center text-sm md:text-lg font-medium mt-4 text-blue-950">{step.desc}</p>
           </div>
         ))}
       </div>
 
-      <div className="text-center my-16">
-        <h2 className="text-blue-950 text-3xl font-bold">Why choose LocalFix</h2>
-        <p className="text-2xl mt-4 text-blue-950 font-medium">
+      <div className="text-center md:mt-16 md:mb-10 my-8">
+        <h2 className="text-blue-950 md:text-5xl text-[40px] font-bold">Why choose LocalFix</h2>
+        <p className="md:text-2xl text-lg mt-4 text-blue-950 font-medium">
           We make finding and hiring skilled professionals simple and reliable.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 px-4 md:px-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 px-2 md:px-10">
         {[{
           img: "src/imgs/Professionals.jpg",
           title: "Verified Professionals",
@@ -107,33 +107,33 @@ export default function MidSection() {
           title: "Empowering Local Talent",
           desc: "We help independent professionals grow their visibility and find consistent work."
         }].map((card, idx) => (
-          <div key={idx} className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-105 transition duration-300 shadow-md">
+          <div key={idx} className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-103 transition duration-300 shadow-md">
             <img className="h-16" src={card.img} alt="icon" />
-            <h3 className="font-bold text-[20px] mt-4 text-center">{card.title}</h3>
-            <p className="text-center text-[16px] font-medium pt-4">{card.desc}</p>
+            <h3 className="font-bold text-2xl md:text-[28px] text-blue-950 mt-4 text-center">{card.title}</h3>
+            <p className="text-center text-sm md:text-lg font-medium pt-4 text-blue-950">{card.desc}</p>
           </div>
         ))}
       </div>
 
-      <div className="text-center mt-20">
-        <h2 className="text-blue-950 text-3xl font-bold">What Our Customers Say</h2>
-        <p className="text-2xl mt-4 text-blue-950 font-medium">Join thousands of satisfied customers who trust LocalFix</p>
+      <div className="text-center md:mt-18 mt-12">
+        <h2 className="text-blue-950 md:text-5xl text-[40px] font-bold">What Our Customers Say</h2>
+        <p className="md:text-2xl text-lg mt-4 text-blue-950 font-medium">Join thousands of satisfied customers who trust LocalFix</p>
       </div>
 
-      <div className="flex flex-col items-center justify-center mt-10" onMouseEnter={stopAutoSlide} onMouseLeave={startAutoSlide}>
+      <div className="flex flex-col items-center justify-center mt-5 md:mt-8" onMouseEnter={stopAutoSlide} onMouseLeave={startAutoSlide}>
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
             initial={{ opacity: 0, x: 20, scale: 1 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: -20, scale: 0.95 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-105 transition duration-300 shadow-md w-[90%] md:w-[500px] h-[280px]"
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="bg-white p-6 rounded-2xl flex flex-col items-center hover:scale-103 transition duration-300 shadow-md w-[95%] md:w-[90%] h-auto md:py-15"
           >
             <span>{reviews[current].stars}</span>
-            <p className="text-center text-[17px] font-bold mt-6">{reviews[current].text}</p>
-            <p className="text-center text-[17px] font-bold mt-6">{reviews[current].name}</p>
-            <p className="text-[14px] mt-1">{reviews[current].location}</p>
+            <p className="text-center md:text-[21px] text-lg font-medium mt-6">{reviews[current].text}</p>
+            <p className="text-center md:text-lg text-[16px] font-bold mt-6">{reviews[current].name}</p>
+            <p className="md:text-[16px] text-sm  mt-1">{reviews[current].location}</p>
           </motion.div>
         </AnimatePresence>
 
@@ -149,26 +149,26 @@ export default function MidSection() {
         </div>
       </div>
 
-      <div className="text-center mt-20">
-        <h2 className="text-blue-950 text-3xl font-bold">Ready to Get Started?</h2>
-        <p className="text-2xl mt-4 text-blue-950 font-medium">
+      <div className="text-center md:mt-8 mt-5">
+        <h2 className="text-blue-950 md:text-5xl text-[40px] font-bold">Ready to Get Started?</h2>
+        <p className="md:text-2xl text-lg mt-4 text-blue-950 font-medium">
           Join thousands of satisfied customers and skilled professionals on LocalFix today.
         </p>
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-center mt-10 gap-4">
-        <Link
-          to=""
-          className="font-medium w-full sm:w-[200px] h-[50px] bg-blue-950 text-white flex items-center justify-center rounded-md transition hover:text-black hover:bg-white shadow-md"
+        <button
+          onClick={()=>{}}
+          className="font-medium w-full md:w-[300px] h-[50px] bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white md:text-lg flex items-center justify-center rounded-lg transition hover:bg-white hover:scale-102 duration-300 shadow-md"
         >
           Find a professional
-        </Link>
-        <Link
-          to=""
-          className="font-medium w-full sm:w-[200px] h-[50px] bg-white text-blue-950 flex items-center justify-center rounded-md transition hover:text-white hover:bg-red-700 shadow-md"
+        </button>
+        <button
+        onClick={()=>{}}
+          className="font-medium w-full md:w-[300px] h-[50px] bg-white text-blue-950 md:text-lg flex items-center justify-center rounded-md transition border border-transparent hover:border-blue-700 hover:scale-102 duration-300 shadow-md"
         >
           Join as a worker
-        </Link>
+        </button>
       </div>
     </section>
   );
