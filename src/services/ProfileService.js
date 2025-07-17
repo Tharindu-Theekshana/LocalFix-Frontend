@@ -12,3 +12,16 @@ export const getProfilesByCategory = async (category) =>{
         throw e;
     }
 }
+
+export const getProfileById = async (id) => {
+    try{
+
+        const response = await api.get(`profile/getById/${id}`);
+        return response.data;
+
+    }catch(e){
+        console.error("error in get profile by id : ", e);
+        throw e;
+    }
+}
+

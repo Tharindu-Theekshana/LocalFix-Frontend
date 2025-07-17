@@ -69,7 +69,7 @@ export default function Profiles() {
     <>
     <Navbar/>
     <div className="bg-blue-50 min-h-screen pt-20 px-4">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-8xl mx-auto md:mx-7 py-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 md:gap-5 gap-3 max-w-8xl mx-auto md:mx-7 py-6">
     {profiles.map((profile) => (
       <div
         key={profile.id}
