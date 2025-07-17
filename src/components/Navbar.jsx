@@ -1,23 +1,51 @@
 import React from 'react'
 import { useState } from 'react';
-import { Menu, User, X } from 'lucide-react';
+import { LogOut, Menu, User, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Home from '../pages/Home';
+import { logoutUser } from '../services/AuthService';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const brandName = "LocalFix";
+
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    const logoutResponse = await logoutUser();
+    alert(logoutResponse.message);
+    localStorage.clear();
+    navigate('/login');
+    setIsOpen(false); 
+  };
+  
+  
+  const handleLogin = (e) => {
+    e.preventDefault();
+    navigate('/login');
+    setIsOpen(false);
+  };
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Services", href: "#services" },
     { name: "Add My Service", href: "#services" },
     { name: "Contact", href: "#contact"},
     { name: (
-        <span className="flex items-center gap-1">
-          <User size={20} />
-          Login
-        </span>
-      ), href: "/login" }
+      isLoggedIn ? 
+      <span className="flex items-center gap-1">
+        <LogOut size={20} />
+        Logout
+      </span>
+      :
+      <span className="flex items-center gap-1">
+        <User size={20} />
+        Login
+      </span>
+    ), 
+    href: "#", 
+    onClick: isLoggedIn ? handleLogout : handleLogin}
   ];
 
   const toggleMenu = () => {
@@ -45,6 +73,7 @@ export default function Navbar() {
                   <a
                     key={index}
                     href={link.href}
+                    onClick={link.onClick || undefined}
                     className="text-white/90 hover:text-white transition-all duration-300 px-3 py-2 text-lg font-medium border-b-2 border-transparent hover:border-white"
                   >
                     {link.name}
@@ -76,7 +105,7 @@ export default function Navbar() {
                 key={index}
                 href={link.href}
                 className="text-white text-2xl font-medium hover:text-blue-200 transition-all duration-300 py-4 px-6 rounded-lg hover:bg-white/10"
-                onClick={() => setIsOpen(false)}
+                onClick={link.onClick || (() => setIsOpen(false))}
               >
                 {link.name}
               </a>

@@ -4,6 +4,8 @@ import { Eye, EyeOff, Mail, Lock, AlertCircle, User, Briefcase } from 'lucide-re
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { loginUser, register } from '../services/AuthService';
+
 
 export default function Login() {
     const [isSignup, setIsSignup] = useState(true);
@@ -33,7 +35,7 @@ export default function Login() {
     });
 
     const {
-        register: register,
+        register: signupRegister,
         handleSubmit: registerHandleSubmit,
         formState: {errors: registerErrors}
     } = useForm({
@@ -52,29 +54,49 @@ export default function Login() {
         setFocusedField(null);
     };
 
-    // Login submission handler
+   
     const onLoginSubmit = async (data) => {
         setIsSubmitting(true);
         try {
-            console.log('Login data:', data);
-            // Add your login logic here
+            
+            const loginResData = await loginUser(data);
+            alert(loginResData.message);
+
+                console.log('Login successful:', {
+                    loginResData,
+                    token: loginResData.token,
+                    role: loginResData.role,
+                    userId: loginResData.userId,
+                    isLoggedIn: loginResData.loggedIn
+                });
+            if(loginResData.token){
+
+                localStorage.clear();
+                localStorage.setItem('token', loginResData.token);
+                localStorage.setItem('userRole', loginResData.role);
+                localStorage.setItem('isLoggedIn', loginResData.loggedIn);
+            } 
+                
+           
             await new Promise(resolve => setTimeout(resolve, 1000));
         } catch (error) {
-            console.error('Login error:', error);
+            console.error('Login error:', error.response?.data || error.message || error);
         } finally {
             setIsSubmitting(false);
         }
     };
 
-    // Register submission handler
+
     const onRegisterSubmit = async (data) => {
         setIsSubmitting(true);
         try {
-            console.log('Register data:', { data, role });
-            // Add your register logic here
+
+            const registerResData = await register(data,role);
+            alert(registerResData.message);
             await new Promise(resolve => setTimeout(resolve, 1000));
+
         } catch (error) {
-            console.error('Register error:', error);
+            console.error('Register error:', error.response?.data || error.message || error);
         } finally {
             setIsSubmitting(false);
         }
@@ -284,7 +306,7 @@ export default function Login() {
                                             <input
                                                 type="email"
                                                 id="registerEmail"
-                                                {...register("registerEmail")}
+                                                {...signupRegister("registerEmail")}
                                                 onFocus={() => handleFocus('registerEmail')}
                                                 onBlur={handleBlur}
                                                 className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
@@ -317,7 +339,7 @@ export default function Login() {
                                             <input
                                                 type={showPassword ? 'text' : 'password'}
                                                 id="registerPassword"
-                                                {...register("registerPassword")}
+                                                {...signupRegister("registerPassword")}
                                                 onFocus={() => handleFocus('registerPassword')}
                                                 onBlur={handleBlur}
                                                 className={`w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
@@ -357,7 +379,7 @@ export default function Login() {
                                             <input
                                                 type={showConfirmPassword ? 'text' : 'password'}
                                                 id="confirmPassword"
-                                                {...register("confirmPassword")}
+                                                {...signupRegister("confirmPassword")}
                                                 onFocus={() => handleFocus('confirmPassword')}
                                                 onBlur={handleBlur}
                                                 className={`w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
