@@ -167,7 +167,7 @@ export default function MidSection() {
           Find a professional
         </a>
         <button
-        onClick={()=>{}}
+        onClick={()=>{ navigate("/login")}}
           className="font-medium w-full sm:w-[200px] h-[50px] bg-white text-blue-950 flex items-center justify-center rounded-lg transition hover:scale-102 duration-300 border border-blue-600 hover:border-blue-700 shadow-md"
         >
           Join as a worker

@@ -15,7 +15,7 @@ export default function FooterSection() {
   const Getstarted = [
     {name: 'Find Workers', link: "#home"},
     {name: 'How It Works', link: "#mid"},
-    {name: 'Join as Worker', link: ""}
+    {name: 'Join as Worker', link: "/login"}
 ];
   const QuickLinks = [
     {name: 'Home', link:"#home"},
