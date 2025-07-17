@@ -4,6 +4,8 @@ import NotFound from './pages/NotFound'
 import Home from './pages/Home'
 import Profiles from './components/Profiles'
 import EachProfile from './components/EachProfile'
+import Login from './components/login'
+
 
 function App() {
   
@@ -16,6 +18,7 @@ function App() {
           <Route path='*' element={<NotFound/>}/>
           <Route path='/profiles' element={<Profiles/>}/>
           <Route path='/eachProfile' element={<EachProfile/>}/>
+          <Route path='/login' element={<Login/>}/>
         </Routes>
     </Router>
     </>

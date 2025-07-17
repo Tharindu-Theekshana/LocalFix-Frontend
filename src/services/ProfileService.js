@@ -25,3 +25,21 @@ export const getProfileById = async (id) => {
     }
 }
 
+export const searchProfile = async (category, location) => {
+    try{
+
+        const response = await api.get(`profile/searchProfile`, {
+            params: {
+                category: category,
+                location: location
+            }
+        });
+
+        return response.data;
+
+    }catch(e){
+        console.error("cant get search profile : ", e);
+        throw e;
+    }
+}
+

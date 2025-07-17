@@ -1,5 +1,6 @@
 import { ArrowDown, MapPin, Search } from 'lucide-react';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 export default function HeroSection() {
   
@@ -16,10 +17,11 @@ export default function HeroSection() {
     'Cleaner'
   ];
 
+  const navigate = useNavigate();
   
   const handleSearch = () => {
-    console.log('Searching for:', selectedService, 'in', location);
     
+        navigate("/profiles", {state: {selectedService,location}});
   };
 
   return (

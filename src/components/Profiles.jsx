@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { getProfilesByCategory } from '../services/profileService';
+import { getProfilesByCategory, searchProfile } from '../services/profileService';
 import { Briefcase, DollarSign, MapPin, Star } from 'lucide-react';
 
 export default function Profiles() {
 
     const location = useLocation();
     const value = location.state?.value;
+    const selctedLocation = location.state?.location;
+    const selectedCategory =location.state?.selectedService;
 
     const [profiles, setProfiles] = useState([]);
 
@@ -16,8 +18,16 @@ export default function Profiles() {
         const fetchProfiles = async () => {
             try{
     
-                const data = await getProfilesByCategory(value);
-                setProfiles(data);
+                if(selctedLocation && selectedCategory){
+                    const profileData = await searchProfile(selectedCategory, selctedLocation);
+                    setProfiles(profileData);
+
+                    console.log(selectedCategory, selctedLocation);
+
+                }else if(value){
+                    const data = await getProfilesByCategory(value);
+                    setProfiles(data);
+                }
     
             }catch(e){
                 console.error("error fetching profiles : " , e);
@@ -25,11 +35,9 @@ export default function Profiles() {
             }
         };
 
-        if(value){
-            fetchProfiles();
-        }
+            fetchProfiles();       
 
-    }, [value]);
+    }, [location.state]);
 
     const navigate = useNavigate();
 
