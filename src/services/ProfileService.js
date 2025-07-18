@@ -46,7 +46,6 @@ export const searchProfile = async (category, location) => {
 
 export const getProfileByWorkerId = async (id) => {
     try{
-        console.log("workerId:",id);
         const response = await api.get(`/profile/getProfileByWorkerId/${id}`);
         return response.data;
 
@@ -55,3 +54,4 @@ export const getProfileByWorkerId = async (id) => {
         throw e;
     }
 }
+

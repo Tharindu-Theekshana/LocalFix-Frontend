@@ -18,7 +18,7 @@ export default function ServicesSection() {
     const navigate = useNavigate();
 
     const handleClick = (value) => {
-        console.log("click : ", value);
+        
         navigate('/profiles', {state: {value}})
     }
 
