@@ -9,6 +9,7 @@ import CustomerDashboard from './components/CustomerDashboard'
 import WorkerDashboard from './components/WorkerDashboard'
 import AdminDashboard from './components/AdminDashboard'
 import MyJobs from './components/MyJobs'
+import WorkerReviews from './components/WorkerReviews'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path='/workerDashboard' element={<WorkerDashboard/>}/>
           <Route path='/adminDashboard' element={<AdminDashboard/>}/>
           <Route path='/myJobs' element={<MyJobs/>}/>
+          <Route path='/workerReviews' element={<WorkerReviews/>}/>
         </Routes>
     </Router>
     </>

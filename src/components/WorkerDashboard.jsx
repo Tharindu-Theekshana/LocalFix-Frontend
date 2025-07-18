@@ -297,7 +297,7 @@ export default function WorkerDashboard() {
                     </div>
                   </div>
                   <button
-                    onClick={()=> {navigate("/reviews")}}
+                    onClick={()=> {navigate("/workerReviews", {state: {profileId}})}}
                     className="w-full px-4 py-2 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-lg font-medium transition-colors duration-200"
                   >
                     View All Reviews
