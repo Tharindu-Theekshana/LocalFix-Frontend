@@ -11,7 +11,7 @@ const reviews = [
     location: "Kandy : Plumbing",
   },
   {
-    stars: "⭐⭐⭐⭐",
+    stars: "⭐⭐⭐⭐⭐",
     text: `"The electrician was punctual and professional. Highly recommend LocalFix!"`,
     name: "Nirosha Fernando",
     location: "Colombo : Electrical",

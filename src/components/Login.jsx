@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginUser, register } from '../services/AuthService';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Login() {
@@ -42,6 +43,8 @@ export default function Login() {
         resolver: yupResolver(registerSchema)
     });
 
+    const navigate = useNavigate();
+
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -75,10 +78,21 @@ export default function Login() {
                 localStorage.setItem('token', loginResData.token);
                 localStorage.setItem('userRole', loginResData.role);
                 localStorage.setItem('isLoggedIn', loginResData.loggedIn);
+                localStorage.setItem('userId', loginResData.userId);
             } 
-                
-           
+                          
             await new Promise(resolve => setTimeout(resolve, 1000));
+
+            const userRole = localStorage.getItem('userRole');
+
+            if (userRole === 'customer') {
+                navigate('/customerDashboard');
+              } else if (userRole === 'worker') {
+                navigate('/workerDashboard');
+              } else if (userRole === 'admin') {
+                navigate('/adminDashboard');
+              }
+
         } catch (error) {
             console.error('Login error:', error.response?.data || error.message || error);
         } finally {

@@ -5,6 +5,9 @@ import Home from './pages/Home'
 import Profiles from './components/Profiles'
 import EachProfile from './components/EachProfile'
 import Login from './components/login'
+import CustomerDashboard from './components/CustomerDashboard'
+import WorkerDashboard from './components/WorkerDashboard'
+import AdminDashboard from './components/AdminDashboard'
 
 
 function App() {
@@ -19,6 +22,9 @@ function App() {
           <Route path='/profiles' element={<Profiles/>}/>
           <Route path='/eachProfile' element={<EachProfile/>}/>
           <Route path='/login' element={<Login/>}/>
+          <Route path='/customerDashboard' element={<CustomerDashboard/>}/>
+          <Route path='/workerDashboard' element={<WorkerDashboard/>}/>
+          <Route path='/adminDashboard' element={<AdminDashboard/>}/>
         </Routes>
     </Router>
     </>

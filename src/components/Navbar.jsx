@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { LogOut, Menu, User, X } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { href, useNavigate } from 'react-router-dom';
 import Home from '../pages/Home';
 import { logoutUser } from '../services/AuthService';
 
@@ -10,6 +10,7 @@ export default function Navbar() {
   const brandName = "LocalFix";
 
   const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const role = localStorage.getItem('userRole');
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -18,6 +19,18 @@ export default function Navbar() {
     localStorage.clear();
     navigate('/login');
     setIsOpen(false); 
+  };
+
+  const handleDashboard = (e) => {
+    e.preventDefault();
+    if (role === 'customer') {
+      navigate('/customerDashboard');
+    } else if (role === 'worker') {
+      navigate('/workerDashboard');
+    } else if (role === 'admin') {
+      navigate('/adminDashboard');
+    }
+    setIsOpen(false);
   };
   
   
@@ -32,6 +45,7 @@ export default function Navbar() {
     { name: "Services", href: "#services" },
     { name: "Add My Service", href: "#services" },
     { name: "Contact", href: "#contact"},
+    ...(isLoggedIn ? [{ name: "Dashboard", href: "#", onClick: handleDashboard }] : []),
     { name: (
       isLoggedIn ? 
       <span className="flex items-center gap-1">
