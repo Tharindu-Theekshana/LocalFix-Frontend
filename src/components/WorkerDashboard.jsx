@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
 import { useNavigate } from 'react-router-dom';
 import { getProfileByWorkerId } from '../services/profileService';
-import { User, Clock, CheckCircle, XCircle, Award, Star, Trash2, Plus,Eye,Calendar,DollarSign,TrendingUp, AlertTriangle} from 'lucide-react'
+import { User, Clock, CheckCircle, XCircle, Award, Star, Trash2, Plus,Eye,Calendar,DollarSign,TrendingUp, AlertTriangle, Briefcase} from 'lucide-react'
 import { deleteAccount } from '../services/UserService';
 
 export default function WorkerDashboard() {
@@ -75,7 +75,6 @@ export default function WorkerDashboard() {
     const jobSections = [
         { 
           title: 'Pending Jobs', 
-          count: 3, 
           icon: Clock, 
           iconColor: 'text-yellow-600',
           description: 'Jobs awaiting approval',
@@ -83,7 +82,6 @@ export default function WorkerDashboard() {
         },
         { 
           title: 'Approved Jobs', 
-          count: 2, 
           icon: CheckCircle, 
           iconColor: 'text-green-600',
           description: 'Active jobs to work on',
@@ -91,7 +89,6 @@ export default function WorkerDashboard() {
         },
         { 
           title: 'Declined Jobs', 
-          count: 1, 
           icon: XCircle, 
           iconColor: 'text-red-600',
           description: 'Jobs that were declined',
@@ -99,17 +96,32 @@ export default function WorkerDashboard() {
         },
         { 
           title: 'Completed Jobs', 
-          count: 18, 
           icon: Award, 
           iconColor: 'text-blue-600',
           description: 'Successfully finished jobs',
           status: "completed"
         },
+        { 
+          title: 'All Jobs', 
+          icon: Briefcase, 
+          iconColor: 'text-blue-600',
+          description: 'Available all jobs.',
+          status: ""
+        },
+        { 
+            title: 'Cancelled Jobs', 
+            icon: XCircle, 
+            iconColor: 'text-red-600',
+            description: 'Customer cancelled jobs.',
+            status: "cancelled"
+        },
       ];
+
+      const profileId = profile.id;
 
       const handleClick = (status) => {
 
-        navigate("/myJobs", {state: {status}});
+        navigate("/myJobs", {state: {status,profileId}});
       }
     
 
