@@ -1,3 +1,4 @@
+import { analyseComplexValue } from "framer-motion";
 import api from "./api";
 
 export const getProfilesByCategory = async (category) =>{
@@ -16,7 +17,7 @@ export const getProfilesByCategory = async (category) =>{
 export const getProfileById = async (id) => {
     try{
 
-        const response = await api.get(`profile/getById/${id}`);
+        const response = await api.get(`/profile/getById/${id}`);
         return response.data;
 
     }catch(e){
@@ -28,7 +29,7 @@ export const getProfileById = async (id) => {
 export const searchProfile = async (category, location) => {
     try{
 
-        const response = await api.get(`profile/searchProfile`, {
+        const response = await api.get(`/profile/searchProfile`, {
             params: {
                 category: category,
                 location: location
@@ -43,3 +44,14 @@ export const searchProfile = async (category, location) => {
     }
 }
 
+export const getProfileByWorkerId = async (id) => {
+    try{
+        console.log("workerId:",id);
+        const response = await api.get(`/profile/getProfileByWorkerId/${id}`);
+        return response.data;
+
+    }catch(e){
+        console.error("cant get profile : " , e);
+        throw e;
+    }
+}
