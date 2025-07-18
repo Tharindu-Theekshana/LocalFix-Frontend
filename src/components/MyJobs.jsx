@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
-import { getBookingsOfEachWorkerByStatus } from '../services/BookingService';
+import { getBookingsOfEachWorkerByStatus, updateBookingStatus } from '../services/BookingService';
 import { Calendar, Clock, MapPin, Phone, AlertCircle, CheckCircle, XCircle, Clock3, Loader2 } from 'lucide-react';
 
 export default function MyJobs() {
@@ -68,16 +68,17 @@ export default function MyJobs() {
     }, [profileId, status]);
 
     const handleStatusChange = async (bookingId, newStatus) => {
+
         try {
-            // Update local state immediately for better UX
+            
             setBookings(prevBookings =>
                 prevBookings.map(booking =>
                     booking.id === bookingId ? { ...booking, status: newStatus } : booking
                 )
             );
 
-            -
-            console.log(`Booking ${bookingId} status changed to ${newStatus}`);
+            const updatedRes = await updateBookingStatus(bookingId,newStatus);
+         
         } catch (error) {
             console.error("Error updating booking status:", error);
             
@@ -284,7 +285,7 @@ export default function MyJobs() {
                                                         className="flex-1 bg-red-600 hover:bg-red-700 text-white md:text-lg py-2 px-4 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center justify-center"
                                                     >
                                                         <XCircle className="w-4 h-4 md:w-5 md:h-5 mr-1" />
-                                                        Cancel
+                                                        Cancel Booking
                                                     </button>
                                                 </div>
                                             ) : (
