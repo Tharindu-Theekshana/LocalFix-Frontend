@@ -43,7 +43,6 @@ export default function Profiles() {
 
     const handleViewClick = (id) => {
 
-        console.log("profile id is : " + id);
         navigate("/eachProfile", {state: {id}});
     }
 
