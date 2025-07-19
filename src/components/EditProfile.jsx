@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 export default function EditProfile() {
   const workerId = localStorage.getItem('userId');
   const [profile, setProfile] = useState({});
-  const [profileImageFile, setProfileImageFile] = useState(null); // for file
-  const [galleryFiles, setGalleryFiles] = useState([]); // [{preview, file, isExisting}]
+  const [profileImageFile, setProfileImageFile] = useState(null); 
+  const [galleryFiles, setGalleryFiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -25,7 +25,7 @@ export default function EditProfile() {
               preview: img.data ? `data:image/jpeg;base64,${img.data}` : img, 
               file: null, 
               isExisting: true,
-              imageId: img.id // Make sure this is the image ID from backend
+              imageId: img.id 
             }))
           );
         }
@@ -67,7 +67,11 @@ export default function EditProfile() {
       // Handle profile image
       if (profileImageFile) {
         formData.append('profileImage', profileImageFile);
+      } else {
+        // Add an empty file or blob to satisfy the backend
+        formData.append('profileImage', new Blob([], { type: 'application/octet-stream' }), 'empty.jpg');
       }
+      
       
       // Add new images only
       const newImages = galleryFiles.filter(imgObj => imgObj.file);
