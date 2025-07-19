@@ -55,3 +55,13 @@ export const getProfileByWorkerId = async (id) => {
     }
 }
 
+export const updateProfile = async (id, profileData) => {
+    try {
+        const response = await api.put(`/profile/updateProfile/${id}`, profileData);
+        return response.data;
+    } catch (e) {
+        console.error("error updating profile : ", e);
+        throw e;
+    }
+}
+
