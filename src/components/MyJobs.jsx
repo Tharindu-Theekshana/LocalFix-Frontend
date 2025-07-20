@@ -169,7 +169,6 @@ export default function MyJobs() {
             <Navbar />
             <div className="pt-16 min-h-screen bg-gray-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    {/* Header */}
                     <div className="mb-8">
                         <h2 className="text-3xl md:text-4xl font-bold text-center text-blue-950 mb-2">{getStatusTitle()}</h2>
                         <p className="text-gray-600 md:text-lg text-center">
@@ -177,7 +176,6 @@ export default function MyJobs() {
                         </p>
                     </div>
 
-                    {/* Bookings Grid */}
                     {bookings.length === 0 ? (
                         <div className="text-center py-16">
                             <div className="mx-auto h-24 w-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
@@ -200,7 +198,6 @@ export default function MyJobs() {
                                         key={booking.id}
                                         className="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 overflow-hidden"
                                     >
-                                        {/* Header */}
                                         <div className="p-6 pb-4">
                                             <div className="flex items-center justify-between mb-4">
                                                
@@ -212,12 +209,10 @@ export default function MyJobs() {
                                                 </div>
                                             </div>
 
-                                            {/* Description */}
                                             <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
                                                 {booking.description}
                                             </h3>
 
-                                            {/* Urgency */}
                                             {booking.urgency && (
                                                 <div className="mb-4">
                                                     <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium border md:text-[16px] ${urgencyConfig[booking.urgency] || 'bg-gray-50 text-gray-700 border-gray-200'}`}>
@@ -228,7 +223,6 @@ export default function MyJobs() {
                                             )}
                                         </div>
 
-                                        {/* Details */}
                                         <div className="px-6 pb-6 space-y-3">
                                             <div className="flex items-center text-sm md:text-lg text-gray-600">
                                                 <Calendar className="w-4 h-4 md:w-5 md:h-5 mr-2 text-gray-400" />
@@ -251,7 +245,6 @@ export default function MyJobs() {
                                             </div>
                                         </div>
 
-                                        {/* Actions */}
                                         <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
                                             {booking.status === 'pending' ? (
                                                 <div className="flex space-x-3">

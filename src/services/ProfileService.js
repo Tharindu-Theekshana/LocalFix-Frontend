@@ -1,5 +1,6 @@
 import { analyseComplexValue } from "framer-motion";
 import api from "./api";
+import axios from "axios";
 
 export const getProfilesByCategory = async (category) =>{
 
@@ -55,3 +56,32 @@ export const getProfileByWorkerId = async (id) => {
     }
 }
 
+export const updateProfile = async (id, profileData) => {
+    try {
+        const response = await api.put(`/profile/updateProfile/${id}`, profileData);
+        return response.data;
+    } catch (e) {
+        console.error("error updating profile : ", e);
+        throw e;
+    }
+}
+
+export const createProfile = async (formData) => {
+    try{
+
+        const token = localStorage.getItem('token');
+
+        const response = await api.post("/profile/createProfile", formData, {
+            headers: {
+              'Authorization': `Bearer ${token}`,         // ✅ force set Authorization
+              'Content-Type': 'multipart/form-data',      // ✅ force multipart
+            }
+          });
+
+        return response.data;
+
+    }catch(e){
+        console.error("can create profile : ",e);
+        throw e;
+    }
+}

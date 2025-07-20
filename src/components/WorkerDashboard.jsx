@@ -159,7 +159,7 @@ export default function WorkerDashboard() {
                 </p>
                 <div className="space-y-4">
                   <button
-                    onClick={() => {}}
+                    onClick={() => {navigate("/createProfile")}}
                     className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-colors duration-200 shadow-sm hover:shadow-md"
                   >
                     <Plus className="w-6 h-6 mr-2" />
@@ -222,7 +222,7 @@ export default function WorkerDashboard() {
 
                 <div className="flex flex-col justify-center sm:flex-row gap-4">
                   <button
-                    onClick={() => {navigate("/viewProfile")}}
+                    onClick={() => {navigate("/myProfile")}}
                     className="flex items-center justify-center px-6 md:px-10 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200 shadow-sm hover:shadow-lg"
                   >
                     <Eye className="w-5 h-5 mr-2" />
