@@ -159,7 +159,7 @@ export default function WorkerDashboard() {
                 </p>
                 <div className="space-y-4">
                   <button
-                    onClick={() => {}}
+                    onClick={() => {navigate("/createProfile")}}
                     className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-colors duration-200 shadow-sm hover:shadow-md"
                   >
                     <Plus className="w-6 h-6 mr-2" />

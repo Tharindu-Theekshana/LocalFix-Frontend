@@ -65,13 +65,6 @@ export default function Login() {
             const loginResData = await loginUser(data);
             alert(loginResData.message);
 
-                console.log('Login successful:', {
-                    loginResData,
-                    token: loginResData.token,
-                    role: loginResData.role,
-                    userId: loginResData.userId,
-                    isLoggedIn: loginResData.loggedIn
-                });
             if(loginResData.token){
 
                 localStorage.clear();
@@ -108,6 +101,7 @@ export default function Login() {
             const registerResData = await register(data,role);
             alert(registerResData.message);
             await new Promise(resolve => setTimeout(resolve, 1000));
+            setIsSignup(true);
 
         } catch (error) {
             console.error('Register error:', error.response?.data || error.message || error);
