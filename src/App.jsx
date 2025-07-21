@@ -16,6 +16,7 @@ import Contact from './pages/Contact';
 import MyProfile from './components/MyProfile'
 import EditProfile from './components/EditProfile'
 import CreateProfile from './components/CreateProfile'
+import AboutUs from './pages/aboutUs'
 
 
 
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route index element={<Home/>}/>
           <Route path='*' element={<NotFound/>}/>
+          <Route path='/aboutus' element={<AboutUs/>}/>
           <Route path='/profiles' element={<Profiles/>}/>
           <Route path='/eachProfile' element={<EachProfile/>}/>
           <Route path='/login' element={<Login/>}/>
