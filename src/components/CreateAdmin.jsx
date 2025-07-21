@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Eye, EyeOff, Mail, Lock, AlertCircle, User, Briefcase } from 'lucide-react'; 
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { register } from '../services/AuthService';
 
 export default function CreateAdmin() {
 
@@ -25,7 +26,7 @@ export default function CreateAdmin() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
     const [focusedField, setFocusedField] = useState(null);
-    const [role, setRole] = useState('customer'); 
+    const [role, setRole] = useState('admin'); 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
 
@@ -33,9 +34,6 @@ export default function CreateAdmin() {
 
     const navigate = useNavigate();
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
 
     const handleFocus = (fieldName) => {
         setFocusedField(fieldName);
@@ -52,6 +50,7 @@ export default function CreateAdmin() {
             const registerResData = await register(data,role);
             alert(registerResData.message);
             await new Promise(resolve => setTimeout(resolve, 1000));
+            navigate("/adminDashboard")
 
         } catch (error) {
             console.error('Register error:', error.response?.data || error.message || error);
@@ -70,7 +69,7 @@ export default function CreateAdmin() {
                     <div className="w-16 md:w-18 md:h-18 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                         <User className="w-8 md:w-10 md:h-10 h-8 text-white" />
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Create Account</h1>
+                    <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Create Admin Account</h1>
                     <p className="text-gray-600 md:text-lg">Join our platform today</p>
                 </div>
 
@@ -79,31 +78,16 @@ export default function CreateAdmin() {
                     
                     <div className="mb-8 ">
                         <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4">I want to register as:</h3>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 gap-4">
                             <button
                                 type="button"
-                                onClick={() => setRole('customer')}
-                                className={`p-4 rounded-lg border-2 transition-all ${
-                                    role === 'customer'
-                                        ? 'border-blue-500 bg-blue-50 text-blue-700'
-                                        : 'border-gray-300 hover:border-gray-400'
-                                }`}
+                                onClick={() => setRole('admin')}
+                                className={`p-4 rounded-lg border-2 transition-all border-blue-500 bg-blue-50 text-blue-700 hover:border-gray-400`}
                             >
                                 <User className="w-6 h-6 mx-auto mb-2" />
-                                <span className="font-medium">Customer</span>
+                                <span className="font-medium">Admin</span>
                             </button>
-                            <button
-                                type="button"
-                                onClick={() => setRole('worker')}
-                                className={`p-4 rounded-lg border-2 transition-all ${
-                                    role === 'worker'
-                                        ? 'border-blue-500 bg-blue-50 text-blue-700'
-                                        : 'border-gray-300 hover:border-gray-400'
-                                }`}
-                            >
-                                <Briefcase className="w-6 h-6 mx-auto mb-2" />
-                                <span className="font-medium">Worker</span>
-                            </button>
+                            
                         </div>
                     </div>
 
@@ -257,21 +241,12 @@ export default function CreateAdmin() {
                                     <span>Creating Account...</span>
                                 </div>
                             ) : (
-                                `Create ${role === 'customer' ? 'Customer' : 'Worker'} Account`
+                                `Create Admin Account`
                             )}
                         </button>
                     </form>
                 </div>
 
-                
-                <div className="text-center mt-6">
-                    <p className="text-gray-600 md:text-lg">
-                        Already have an account?{' '}
-                        <button onClick={() => setIsSignup(true)} className="text-blue-600 hover:text-blue-800 font-medium transition-colors">
-                            Sign in
-                        </button>
-                    </p>
-                </div>
             </div>
         </div>
     </>

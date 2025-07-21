@@ -20,7 +20,7 @@ export default function FooterSection() {
   const QuickLinks = [
     {name: 'Home', link:"#home"},
     {name: 'Services', link:"#services"},
-    {name:'About Us', link: ""},
+    {name:'About Us', link: "/aboutUs"},
     {name: 'Contact', link:"/contact"}
 ];
 

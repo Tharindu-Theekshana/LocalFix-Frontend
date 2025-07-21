@@ -62,6 +62,7 @@ export default function WorkerDashboard() {
             alert(deleteRes.message);
             await new Promise(resolve => setTimeout(resolve, 2000))
             console.log("account deleted")
+            localStorage.clear();
             navigate("/");
 
         }catch(e){

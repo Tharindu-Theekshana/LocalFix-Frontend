@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mail, Phone, MapPin,Facebook, Linkedin, Instagram, Twitter } from 'lucide-react';
 import Navbar from '../components/Navbar';
+import FooterSection from '../components/FooterSection';
 
 
 export default function Contact() {
@@ -95,6 +96,7 @@ export default function Contact() {
     </div>
   </div>
 </div>
+<FooterSection/>
 </>
   );
 }

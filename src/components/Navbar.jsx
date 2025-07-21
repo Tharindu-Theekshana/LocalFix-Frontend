@@ -43,7 +43,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Services", href: "#services" },
-    { name: "Add My Service", href: "#services" },
+    { name: "About", href: "/aboutUs" },
     { name: "Contact", href: "/contact"},
     ...(isLoggedIn ? [{ name: "Dashboard", href: "#", onClick: handleDashboard }] : []),
     { name: (

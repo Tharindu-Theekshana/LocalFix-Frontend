@@ -58,7 +58,7 @@ export default function AboutUs() {
 
             {/* Introduction */}
             <section className="py-16 container mx-auto px-4">
-    <div className="max-w-5xl mx-auto">
+                <div className="max-w-5xl mx-auto">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 relative inline-block">
                             <span className="relative z-10">Revolutionizing Home Services</span>
@@ -91,7 +91,7 @@ export default function AboutUs() {
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">What Makes Us Different</h2>
                     
                     <div className="grid md:grid-cols-3 gap-8">
-                        <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
                             <div className="text-blue-600 text-4xl mb-4 flex justify-center">
                                 <IoIosConstruct />
                             </div>
@@ -101,7 +101,7 @@ export default function AboutUs() {
                             </p>
                         </div>
                         
-                        <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
                             <div className="text-blue-600 text-4xl mb-4 flex justify-center">
                                 <IoMdPricetag />
                             </div>
@@ -111,7 +111,7 @@ export default function AboutUs() {
                             </p>
                         </div>
                         
-                        <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
                             <div className="text-blue-600 text-4xl mb-4 flex justify-center">
                                 <IoMdTime />
                             </div>
@@ -201,7 +201,7 @@ export default function AboutUs() {
                     <p className="text-xl mb-8 max-w-2xl mx-auto">
                         Join thousands of satisfied customers who trust us for their home service needs.
                     </p>
-                    <button className="  duration-300 active:scale-100 hover:shadow-md hover:scale-105"><Link to="/" className="bg-white text-blue-700 hover:bg-red-700 duration-300 hover:text-white font-bold py-3 px-8 rounded-lg">
+                    <button className="  duration-300 active:scale-100 hover:shadow-lg hover:scale-102"><Link to="/" className="bg-white text-blue-950 duration-300 font-bold py-3 px-8 rounded-lg">
                         Book a Service Now
                     </Link></button>
                     
