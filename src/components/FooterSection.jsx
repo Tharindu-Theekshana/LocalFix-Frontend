@@ -21,7 +21,7 @@ export default function FooterSection() {
     {name: 'Home', link:"#home"},
     {name: 'Services', link:"#services"},
     {name:'About Us', link: ""},
-    {name: 'Contact', link:""}
+    {name: 'Contact', link:"/contact"}
 ];
 
   const handleClick = (value) => {
