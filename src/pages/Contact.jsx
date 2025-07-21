@@ -1,10 +1,13 @@
 import React from 'react';
 import { Mail, Phone, MapPin,Facebook, Linkedin, Instagram, Twitter } from 'lucide-react';
+import Navbar from '../components/Navbar';
 
 
 export default function Contact() {
   return (
-    <div className="min-h-screen bg-[#001B5E] text-white px-4 py-16">
+    <>
+    <Navbar/>
+    <div className="min-h-screen md:pt-50 pt-23 bg-[#001B5E] text-white px-4 py-16">
   <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
     
     {/* Left: Contact Info */}
@@ -84,7 +87,7 @@ export default function Contact() {
         </div>
         <button
           type="submit"
-          className="w-full bg-[#00A9FF] hover:bg-[#007DD6] text-white py-2 rounded-md font-medium transition"
+          className="w-full bg-white hover:shadow-xl hover:scale-102 duration-300 text-blue-950 py-2 rounded-md font-medium transition"
         >
           Send
         </button>
@@ -92,6 +95,6 @@ export default function Contact() {
     </div>
   </div>
 </div>
-
+</>
   );
 }

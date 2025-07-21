@@ -10,14 +10,13 @@ import WorkerDashboard from './components/WorkerDashboard'
 import AdminDashboard from './components/AdminDashboard'
 import MyJobs from './components/MyJobs'
 import WorkerReviews from './components/WorkerReviews'
-
 import Contact from './pages/Contact';
-
 import MyProfile from './components/MyProfile'
 import EditProfile from './components/EditProfile'
 import CreateProfile from './components/CreateProfile'
-import AboutUs from './pages/aboutUs'
 
+import AboutUs from './pages/aboutUs'
+import CreateAdmin from './components/CreateAdmin'
 
 
 function App() {
@@ -38,13 +37,11 @@ function App() {
           <Route path='/adminDashboard' element={<AdminDashboard/>}/>
           <Route path='/myJobs' element={<MyJobs/>}/>
           <Route path='/workerReviews' element={<WorkerReviews/>}/>
-
           <Route path="/contact" element={<Contact />} />
-
           <Route path='/myProfile' element={<MyProfile/>}/>
           <Route path='/editProfile' element={<EditProfile/>}/>
           <Route path='/createProfile' element={<CreateProfile/>}/>
-
+          <Route path='/createAdmin' element={<CreateAdmin/>}/>
         </Routes>
     </Router>
     </>

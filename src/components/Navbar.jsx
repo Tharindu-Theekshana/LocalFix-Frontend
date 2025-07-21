@@ -44,7 +44,7 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "Services", href: "#services" },
     { name: "Add My Service", href: "#services" },
-    { name: "Contact", href: "contact"},
+    { name: "Contact", href: "/contact"},
     ...(isLoggedIn ? [{ name: "Dashboard", href: "#", onClick: handleDashboard }] : []),
     { name: (
       isLoggedIn ? 
