@@ -14,8 +14,9 @@ import Contact from './pages/Contact';
 import MyProfile from './components/MyProfile'
 import EditProfile from './components/EditProfile'
 import CreateProfile from './components/CreateProfile'
-import CreateAdmin from './components/CreateAdmin'
 
+import AboutUs from './pages/aboutUs'
+import CreateAdmin from './components/CreateAdmin'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route index element={<Home/>}/>
           <Route path='*' element={<NotFound/>}/>
+          <Route path='/aboutus' element={<AboutUs/>}/>
           <Route path='/profiles' element={<Profiles/>}/>
           <Route path='/eachProfile' element={<EachProfile/>}/>
           <Route path='/login' element={<Login/>}/>
