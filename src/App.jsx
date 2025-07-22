@@ -17,6 +17,7 @@ import CreateProfile from './components/CreateProfile'
 
 import AboutUs from './pages/aboutUs'
 import CreateAdmin from './components/CreateAdmin'
+import HandleProfiles from './components/HandleProfiles'
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <Route path='/editProfile' element={<EditProfile/>}/>
           <Route path='/createProfile' element={<CreateProfile/>}/>
           <Route path='/createAdmin' element={<CreateAdmin/>}/>
+          <Route path='/handleProfiles' element={<HandleProfiles/>}/>
         </Routes>
     </Router>
     </>

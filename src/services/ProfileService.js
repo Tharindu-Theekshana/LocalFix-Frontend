@@ -85,3 +85,18 @@ export const createProfile = async (formData) => {
         throw e;
     }
 }
+
+export const getProfilesByStatus = async (status) => {
+    try{
+        const response = await api.get("/profile/getProfilesByStatus", {
+            params: {
+                status: status
+            }
+        });
+        return response.data;
+
+    }catch(e){
+        console.error("cant get profiles by status : ", e);
+        throw e;
+    }
+}

@@ -53,6 +53,7 @@ const handleDeleteConfirm = async () => {
 
   const handleProfileClick = (status) => {
     console.log(`Clicked on ${status} profiles`);
+    navigate("/handleProfiles", {state: {status}});
   };
 
   const handleCustomersClick = () => {
