@@ -213,7 +213,7 @@ export default function WorkerDashboard() {
                                 : 'text-red-600'
                             }`}
                         >
-                            {profile.status}
+                            {profile.status.charAt(0).toUpperCase() + profile.status.slice(1).toLowerCase()}
                         </span>
                         </div>
                     </div>
