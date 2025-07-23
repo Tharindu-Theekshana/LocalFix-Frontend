@@ -20,6 +20,7 @@ import CreateAdmin from './components/CreateAdmin'
 import HandleProfiles from './components/HandleProfiles'
 import AllCustomers from './components/AllCustomers'
 import AllWorkers from './components/AllWorkers'
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
           <Route path='/handleProfiles' element={<HandleProfiles/>}/>
           <Route path='/allCustomers' element={<AllCustomers/>}/>
           <Route path='/allWorkers' element={<AllWorkers/>}/>
+          <Route path="/privacy" element={<PrivacyPolicy />} />
         </Routes>
     </Router>
     </>
