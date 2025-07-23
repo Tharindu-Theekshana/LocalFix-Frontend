@@ -73,15 +73,15 @@ export const createProfile = async (formData) => {
 
         const response = await api.post("/profile/createProfile", formData, {
             headers: {
-              'Authorization': `Bearer ${token}`,         // ✅ force set Authorization
-              'Content-Type': 'multipart/form-data',      // ✅ force multipart
+              'Authorization': `Bearer ${token}`,         
+              'Content-Type': 'multipart/form-data',      
             }
           });
 
         return response.data;
 
     }catch(e){
-        console.error("can create profile : ",e);
+        console.error("cant create profile : ",e);
         throw e;
     }
 }
@@ -97,6 +97,22 @@ export const getProfilesByStatus = async (status) => {
 
     }catch(e){
         console.error("cant get profiles by status : ", e);
+        throw e;
+    }
+}
+
+export const updateProfileStatus = async (id,status) => {
+    try{
+
+        const response = await api.put(`/profile/updateProfileStatus/${id}`,null, {
+            params: {
+                status: status
+            }
+        });
+        return response.data;
+
+    }catch(e){
+        console.error("cant update profile status : ",e);
         throw e;
     }
 }

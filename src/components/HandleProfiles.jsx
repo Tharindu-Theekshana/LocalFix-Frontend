@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import Navbar from './Navbar';
-import { getProfilesByStatus } from '../services/profileService';
+import { getProfilesByStatus, updateProfileStatus } from '../services/profileService';
 import { Star, MapPin, Phone, Briefcase, CheckCircle, XCircle, User } from 'lucide-react'
 
 
@@ -29,17 +29,17 @@ export default function HandleProfiles() {
         fetchProfilesByStatus();
     },[status]);
 
-    const handleApprove = async (profileId) => {
-        // Add your approve logic here
-        console.log('Approving profile:', profileId);
-        // Update the profile status locally or refetch
+    const handleUpdateStatus = async (profileId, updatedStatus) => {
+       try{
+        const response = await updateProfileStatus(profileId,updatedStatus);
+        alert(response.message);
+        window.location.reload();
+       }catch(e){
+        console.error("error updating profile status : ",e);
+       }
     };
 
-    const handleDecline = async (profileId) => {
-        // Add your decline logic here
-        console.log('Declining profile:', profileId);
-        // Update the profile status locally or refetch
-    };
+    
 
     const renderStars = (rating) => {
         return Array.from({ length: 5 }, (_, index) => (
@@ -113,7 +113,7 @@ export default function HandleProfiles() {
                             <p className="text-gray-600">There are no {status} profiles at the moment.</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1  gap-6">
+                        <div className="grid grid-cols-1 gap-4">
                             {profiles.map((profile) => (
                                 <div
                                     key={profile.id}
@@ -194,14 +194,14 @@ export default function HandleProfiles() {
                                         <div className="p-4 bg-white border-t border-gray-100">
                                             <div className="flex space-x-3">
                                                 <button
-                                                    onClick={() => handleApprove(profile.id)}
+                                                    onClick={() => handleUpdateStatus(profile.id, 'approved')}
                                                     className="flex-1 bg-green-500 hover:bg-green-600 text-white px-4 py-2 md:py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center space-x-2 text-sm"
                                                 >
                                                     <CheckCircle className="w-4 md:w-6 md:h-6 h-4" />
                                                     <span className='md:text-lg'>Approve</span>
                                                 </button>
                                                 <button
-                                                    onClick={() => handleDecline(profile.id)}
+                                                    onClick={() => handleUpdateStatus(profile.id, 'declined')}
                                                     className="flex-1 bg-red-500 hover:bg-red-600 text-white px-4 py-2 md:py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center space-x-2 text-sm"
                                                 >
                                                     <XCircle className="w-4 h-4 md:w-6 md:h-6" />
@@ -210,6 +210,33 @@ export default function HandleProfiles() {
                                             </div>
                                         </div>
                                     )}
+                                    {profile.status === "approved" && (
+                                        <div className="p-4 bg-white border-t border-gray-100">
+                                            <div className="flex space-x-3">
+                                                
+                                                <button
+                                                    onClick={() => handleUpdateStatus(profile.id, 'declined')}
+                                                    className="flex-1 bg-red-500 hover:bg-red-600 text-white px-4 py-2 md:py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center space-x-2 text-sm"
+                                                >
+                                                    <XCircle className="w-4 h-4 md:w-6 md:h-6" />
+                                                    <span className='md:text-lg'>Suspend</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        )}
+                                        {profile.status === "declined" && (
+                                        <div className="p-4 bg-white border-t border-gray-100">
+                                            <div className="flex space-x-3">   
+                                            <button
+                                                    onClick={() => handleUpdateStatus(profile.id, 'approved')}
+                                                    className="flex-1 bg-green-500 hover:bg-green-600 text-white px-4 py-2 md:py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center space-x-2 text-sm"
+                                                >
+                                                    <CheckCircle className="w-4 md:w-6 md:h-6 h-4" />
+                                                    <span className='md:text-lg'>Approve</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        )}
                                 </div>
                             ))}
                         </div>

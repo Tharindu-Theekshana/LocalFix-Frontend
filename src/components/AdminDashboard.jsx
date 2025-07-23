@@ -39,7 +39,6 @@ const handleDeleteConfirm = async () => {
         const deleteRes = await deleteAccount(adminId);
         alert(deleteRes.message);
         await new Promise(resolve => setTimeout(resolve, 2000))
-        console.log("account deleted")
         localStorage.clear();
         navigate("/");
 
@@ -52,7 +51,6 @@ const handleDeleteConfirm = async () => {
 }
 
   const handleProfileClick = (status) => {
-    console.log(`Clicked on ${status} profiles`);
     navigate("/handleProfiles", {state: {status}});
   };
 
