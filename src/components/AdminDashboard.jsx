@@ -55,13 +55,11 @@ const handleDeleteConfirm = async () => {
   };
 
   const handleCustomersClick = () => {
-    console.log('Clicked on Total Customers');
-    // Add your navigation or modal logic here
+    navigate("/allCustomers")
   };
 
   const handleWorkersClick = () => {
-    console.log('Clicked on Total Workers');
-    // Add your navigation or modal logic here
+    navigate("/allWorkers")
   };
 
 
@@ -118,7 +116,7 @@ const handleDeleteConfirm = async () => {
             </div>
           </div>
 
-          {/* User Management Cards */}
+          
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-gray-900 mb-6">User Management</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

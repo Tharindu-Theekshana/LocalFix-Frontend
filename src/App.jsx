@@ -18,6 +18,8 @@ import CreateProfile from './components/CreateProfile'
 import AboutUs from './pages/aboutUs'
 import CreateAdmin from './components/CreateAdmin'
 import HandleProfiles from './components/HandleProfiles'
+import AllCustomers from './components/AllCustomers'
+import AllWorkers from './components/AllWorkers'
 
 
 function App() {
@@ -44,6 +46,8 @@ function App() {
           <Route path='/createProfile' element={<CreateProfile/>}/>
           <Route path='/createAdmin' element={<CreateAdmin/>}/>
           <Route path='/handleProfiles' element={<HandleProfiles/>}/>
+          <Route path='/allCustomers' element={<AllCustomers/>}/>
+          <Route path='/allWorkers' element={<AllWorkers/>}/>
         </Routes>
     </Router>
     </>
