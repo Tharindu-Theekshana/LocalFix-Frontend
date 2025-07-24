@@ -14,7 +14,6 @@ import Contact from './pages/Contact';
 import MyProfile from './components/MyProfile'
 import EditProfile from './components/EditProfile'
 import CreateProfile from './components/CreateProfile'
-
 import AboutUs from './pages/aboutUs'
 import CreateAdmin from './components/CreateAdmin'
 import HandleProfiles from './components/HandleProfiles'
@@ -23,6 +22,8 @@ import AllWorkers from './components/AllWorkers'
 import MyBookings from './components/MyBookings'
 import MyReviews from './components/MyReviews'
 import MakeReview from './components/MakeReview'
+import PrivacyPolicy from './pages/PrivacyPolicy';
+
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
           <Route path='/myBookings' element={<MyBookings/>}/>
           <Route path='/myReviews' element={<MyReviews/>}/>
           <Route path='/makeReview' element={<MakeReview/>}/>
+          <Route path="/privacy" element={<PrivacyPolicy />} />
         </Routes>
     </Router>
     </>
