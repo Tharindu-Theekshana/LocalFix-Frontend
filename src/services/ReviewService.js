@@ -28,3 +28,25 @@ export const makeReview = async (data,profileId,customerId) => {
         throw e;
     }
 }
+
+export const getReviewsOfEachCustomer = async (id) => {
+    try{
+        const response = await api.get(`/review/displayReviewsOfEachCustomer/${id}`);
+        return response.data;
+
+    }catch(e){
+        console.error("cant get reviews of each customer : ",e);
+        throw e;
+    }
+}
+
+export const deleteReview = async (id) => {
+    try{
+        const response = await api.delete(`/review/deleteReview/${id}`);
+        return response.data;
+
+    }catch(e){
+        console.error("cant delete review : ",e);
+        throw e;
+    }
+}

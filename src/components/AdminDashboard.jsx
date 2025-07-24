@@ -38,7 +38,7 @@ const handleDeleteConfirm = async () => {
 
         const deleteRes = await deleteAccount(adminId);
         alert(deleteRes.message);
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        await new Promise(resolve => setTimeout(resolve, 1000))
         localStorage.clear();
         navigate("/");
 
