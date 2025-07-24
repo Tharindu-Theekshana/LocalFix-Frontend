@@ -75,8 +75,8 @@ export default function MyBookings() {
         }
       };
     
-      const handleMakeReview = (bookingId) => {
-        navigate("/makeReview", {state: {bookingId}});
+      const handleMakeReview = (profileId) => {
+        navigate("/makeReview", {state: {profileId}});
       };
     
       const formatDate = (dateString) => {
@@ -202,7 +202,7 @@ export default function MyBookings() {
                         
                         {booking.status.toLowerCase() === 'completed' && (
                           <button
-                            onClick={() => handleMakeReview(booking.id)}
+                            onClick={() => handleMakeReview(booking.profileId)}
                             className="w-full bg-blue-600 hover:bg-blue-700  text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
                           >
                             <Star className="w-4 h-4 md:w-5 md:h-5" />
