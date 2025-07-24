@@ -77,7 +77,7 @@ export default function AllCustomers() {
                     <div className="mb-8">
                         <h1 className="text-3xl md:text-4xl font-bold text-blue-950 mb-2 text-center">All Customers</h1>
                         <p className="text-gray-600 text-center md:text-lg">Manage your customer database</p>
-                        <div className="mt-4 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+                        <div className="mt-4 bg-blue-100 border-l-4 border-blue-400 p-4 rounded-r-lg">
                             <p className="text-blue-700 text-sm md:text-lg">
                                 Total Customers: <span className="font-semibold">{customers.length}</span>
                             </p>
@@ -99,7 +99,7 @@ export default function AllCustomers() {
                            
                             <div className="hidden md:block bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                                 <table className="min-w-full divide-y divide-gray-200">
-                                    <thead className="bg-blue-50">
+                                    <thead className="bg-blue-100">
                                         <tr>
                                             <th className="px-6 py-4 text-left text-sm font-semibold text-blue-900 uppercase tracking-wider">
                                                 Customer ID

@@ -81,7 +81,7 @@ export default function AllWorkers() {
                         <p className="text-gray-600 md:text-lg text-center">Manage and view all registered workers</p>
                     </div>
 
-                    <div className="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+                    <div className="mb-6 bg-blue-100 border-l-4 border-blue-400 p-4 rounded-r-lg">
                             <p className="text-blue-700 text-sm md:text-lg">
                                 Total Workers: <span className="font-semibold">{workers.length}</span>
                             </p>

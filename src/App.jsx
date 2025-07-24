@@ -20,6 +20,9 @@ import CreateAdmin from './components/CreateAdmin'
 import HandleProfiles from './components/HandleProfiles'
 import AllCustomers from './components/AllCustomers'
 import AllWorkers from './components/AllWorkers'
+import MyBookings from './components/MyBookings'
+import MyReviews from './components/MyReviews'
+import MakeReview from './components/MakeReview'
 
 
 function App() {
@@ -48,6 +51,9 @@ function App() {
           <Route path='/handleProfiles' element={<HandleProfiles/>}/>
           <Route path='/allCustomers' element={<AllCustomers/>}/>
           <Route path='/allWorkers' element={<AllWorkers/>}/>
+          <Route path='/myBookings' element={<MyBookings/>}/>
+          <Route path='/myReviews' element={<MyReviews/>}/>
+          <Route path='/makeReview' element={<MakeReview/>}/>
         </Routes>
     </Router>
     </>

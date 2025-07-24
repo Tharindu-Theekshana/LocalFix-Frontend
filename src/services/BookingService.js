@@ -31,3 +31,14 @@ export const updateBookingStatus = async (id, newStatus) => {
         throw e;
     }
 }
+
+export const getBookingsOfEachCustomer = async (id) => {
+    try{
+        const response = await api.get(`/booking/getBookingsOfEachCustomer/${id}`);
+        return response.data;
+
+    }catch(e){
+        console.error("cant get bookings of each customer : ",e);
+        throw e;
+    }
+}
