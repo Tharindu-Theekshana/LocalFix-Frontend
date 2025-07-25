@@ -45,7 +45,16 @@ export default function Navbar() {
     { name: "Services", href: "#services" },
     { name: "About", href: "/aboutUs" },
     { name: "Contact", href: "/contact"},
-    ...(isLoggedIn ? [{ name: "Dashboard", href: "#", onClick: handleDashboard }] : []),
+    ...(isLoggedIn && (role === 'worker' || role === 'admin') ? 
+    [{ name: "Dashboard", href: "#", onClick: handleDashboard }] : 
+    [])
+    ,
+    ...(isLoggedIn && role === 'customer' ? 
+    [{ name: <div className="flex items-center justify-center rounded-full w-8 h-8">
+    <User size={20} />
+    </div>, href: "#", onClick: handleDashboard }] : 
+    []
+    ),
     { name: (
       isLoggedIn ? 
       <span className="flex items-center gap-1">

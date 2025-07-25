@@ -57,13 +57,25 @@ export default function Login() {
         setFocusedField(null);
     };
 
+    const extractNameFromEmail = (email) => {
+        if (!email) return '';
+      
+        const namePart = email.split('@')[0]; 
+        const words = namePart.split(/[._]/); 
+        
+        const capitalized = words.map(word =>
+          word.charAt(0).toUpperCase() + word.slice(1)
+        );
+        
+        return capitalized.join(' '); 
+      };
+
    
     const onLoginSubmit = async (data) => {
         setIsSubmitting(true);
         try {
             
             const loginResData = await loginUser(data);
-            alert(loginResData.message);
 
             if(loginResData.token){
 
@@ -72,7 +84,12 @@ export default function Login() {
                 localStorage.setItem('userRole', loginResData.role);
                 localStorage.setItem('isLoggedIn', loginResData.loggedIn);
                 localStorage.setItem('userId', loginResData.userId);
+
+                const name = extractNameFromEmail(loginResData.email);
+                localStorage.setItem('name',name);
             } 
+
+            alert(loginResData.message)
                           
             await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -92,6 +109,8 @@ export default function Login() {
             setIsSubmitting(false);
         }
     };
+
+
 
 
     const onRegisterSubmit = async (data) => {

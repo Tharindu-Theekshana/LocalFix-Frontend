@@ -182,16 +182,16 @@ export default function WorkerDashboard() {
                 <div className="flex items-center justify-center mb-4">
                   <div className="flex items-center space-x-3">
                   <div className="flex-shrink-0">
-              <img
-                src={
-                  profile.profileImage.startsWith("data:image")
-                    ? profile.profileImage
-                    : `data:image/jpeg;base64,${profile.profileImage}`
-                }
-                alt={profile.name}
-                className="w-25 h-25 rounded-full object-cover border-4 border-blue-100"
-              />
-            </div>
+                    <img
+                      src={
+                        profile.profileImage.startsWith("data:image")
+                          ? profile.profileImage
+                          : `data:image/jpeg;base64,${profile.profileImage}`
+                      }
+                      alt={profile.name}
+                      className="w-25 h-25 rounded-full object-cover border-4 border-blue-100"
+                    />
+                  </div>
                     <div>
                       <h2 className="text-xl md:text-2xl font-semibold text-gray-900">Profile Status</h2>
                       <div className="flex items-center space-x-2">

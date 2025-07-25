@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import Navbar from './Navbar';
 import { getProfilesByStatus, updateProfileStatus } from '../services/profileService';
 import { Star, MapPin, Phone, Briefcase, CheckCircle, XCircle, User } from 'lucide-react'
@@ -11,6 +11,8 @@ export default function HandleProfiles() {
     const status = location.state?.status;
     const [profiles, setProfiles] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate();
 
     useEffect(()=> {
         const fetchProfilesByStatus = async () => {
@@ -38,6 +40,10 @@ export default function HandleProfiles() {
         console.error("error updating profile status : ",e);
        }
     };
+
+    const handleNavigate = (id) => {
+        navigate("/eachProfile",{state: {id}});
+    }
 
     
 
@@ -120,7 +126,7 @@ export default function HandleProfiles() {
                                     className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden group"
                                 >
                                     
-                                    <div className="p-6 pb-4">
+                                    <div className="p-6 pb-4" onClick={()=> handleNavigate(profile.id)}>
                                         <div className="flex items-start justify-between mb-4">
                                             <div className="flex items-center space-x-4">
                                                 <div className="w-16 md:w-18 md:h-18 h-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-lg overflow-hidden">

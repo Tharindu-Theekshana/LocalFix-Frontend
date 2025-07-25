@@ -14,11 +14,16 @@ import Contact from './pages/Contact';
 import MyProfile from './components/MyProfile'
 import EditProfile from './components/EditProfile'
 import CreateProfile from './components/CreateProfile'
-
 import AboutUs from './pages/aboutUs'
 import CreateAdmin from './components/CreateAdmin'
 import HandleProfiles from './components/HandleProfiles'
 import TermsAndConditions from './pages/terms&conditions'
+import AllCustomers from './components/AllCustomers'
+import AllWorkers from './components/AllWorkers'
+import MyBookings from './components/MyBookings'
+import MyReviews from './components/MyReviews'
+import MakeReview from './components/MakeReview'
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 
 
@@ -47,6 +52,12 @@ function App() {
           <Route path='/createProfile' element={<CreateProfile/>}/>
           <Route path='/createAdmin' element={<CreateAdmin/>}/>
           <Route path='/handleProfiles' element={<HandleProfiles/>}/>
+          <Route path='/allCustomers' element={<AllCustomers/>}/>
+          <Route path='/allWorkers' element={<AllWorkers/>}/>
+          <Route path='/myBookings' element={<MyBookings/>}/>
+          <Route path='/myReviews' element={<MyReviews/>}/>
+          <Route path='/makeReview' element={<MakeReview/>}/>
+          <Route path="/privacy" element={<PrivacyPolicy />} />
         </Routes>
     </Router>
     </>

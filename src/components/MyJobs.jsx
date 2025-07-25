@@ -77,7 +77,7 @@ export default function MyJobs() {
                 )
             );
 
-            const updatedRes = await updateBookingStatus(bookingId,newStatus);
+            await updateBookingStatus(bookingId,newStatus);
          
         } catch (error) {
             console.error("Error updating booking status:", error);
@@ -282,9 +282,9 @@ export default function MyJobs() {
                                                     </button>
                                                 </div>
                                             ) : (
-                                                <div className="flex justify-between items-center">
+                                                <div className="flex justify-center items-center">
                                                    
-                                                    <span className="text-xs md:text-sm text-gray-400">
+                                                    <span className="text-xs md:text-sm text-gray-600">
                                                         {booking.status === 'completed' ? 'Job Completed' : 
                                                          booking.status === 'declined' ? 'Job Declined' : 
                                                          booking.status === 'cancelled' ? 'Job Cancelled' : 'No Action Required'}

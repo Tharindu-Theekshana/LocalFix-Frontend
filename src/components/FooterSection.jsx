@@ -21,7 +21,8 @@ export default function FooterSection() {
     {name: 'Home', link:"#home"},
     {name: 'Services', link:"#services"},
     {name:'About Us', link: "/aboutUs"},
-    {name: 'Contact', link:"/contact"}
+    {name: 'Contact', link:"/contact"},
+    {name: 'Privacy Policy', link: "/privacy" }
 ];
 
   const handleClick = (value) => {
@@ -109,7 +110,7 @@ export default function FooterSection() {
           <div>
             <h3 className="font-semibold mb-3 text-[18px]">Quick Links</h3>
             {QuickLinks.map((item) => (
-              <a key={item} href={item.link} className="w-[80px] block text-white/80 hover:text-white hover:border-b-1 duration-300 transition ">
+              <a key={item} href={item.link} className="w-[101px] block text-white/80 hover:text-white hover:border-b-1 duration-300 transition ">
                 {item.name}
               </a>
             ))}

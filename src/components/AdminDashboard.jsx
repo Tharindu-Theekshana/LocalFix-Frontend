@@ -38,7 +38,7 @@ const handleDeleteConfirm = async () => {
 
         const deleteRes = await deleteAccount(adminId);
         alert(deleteRes.message);
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        await new Promise(resolve => setTimeout(resolve, 1000))
         localStorage.clear();
         navigate("/");
 
@@ -55,13 +55,11 @@ const handleDeleteConfirm = async () => {
   };
 
   const handleCustomersClick = () => {
-    console.log('Clicked on Total Customers');
-    // Add your navigation or modal logic here
+    navigate("/allCustomers")
   };
 
   const handleWorkersClick = () => {
-    console.log('Clicked on Total Workers');
-    // Add your navigation or modal logic here
+    navigate("/allWorkers")
   };
 
 
@@ -118,7 +116,7 @@ const handleDeleteConfirm = async () => {
             </div>
           </div>
 
-          {/* User Management Cards */}
+          
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-gray-900 mb-6">User Management</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -151,7 +149,7 @@ const handleDeleteConfirm = async () => {
             </div>
           </div>
 
-          {/* Quick Actions */}
+          
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                   <div className="flex items-center space-x-3 mb-4">
                     <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
@@ -168,7 +166,7 @@ const handleDeleteConfirm = async () => {
                   >
                     Delete Account
                   </button>
-                </div>
+          </div>
         </div>
       </div>
       {showDeleteConfirmation && (
