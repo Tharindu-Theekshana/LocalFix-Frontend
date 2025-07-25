@@ -1,5 +1,6 @@
 import React from 'react'
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { useNavigate } from 'react-router';
 
 export default function FooterSection() {
 
@@ -22,12 +23,15 @@ export default function FooterSection() {
     {name: 'Services', link:"#services"},
     {name:'About Us', link: "/aboutUs"},
     {name: 'Contact', link:"/contact"},
-    {name: 'Privacy Policy', link: "/privacy" }
+    {name: 'Privacy Policy', link: "/privacy" },
+    {name: 'Terms & Conditions', link: "/terms&conditions" }
 ];
+  
+  const navigate = useNavigate();
 
   const handleClick = (value) => {
 
-    console.log("clicked : ",value)
+    navigate('/profiles', {state: {value}})
   }
 
   return (

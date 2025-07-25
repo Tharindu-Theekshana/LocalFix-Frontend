@@ -442,11 +442,11 @@ export default function Login() {
                                         />
                                         <label htmlFor="terms" className="text-sm text-gray-600">
                                             I agree to the{' '}
-                                            <a href="#" className="text-blue-600 hover:text-blue-800">
+                                            <a href="/terms&conditions" className="text-blue-600 hover:text-blue-800">
                                                 Terms of Service
                                             </a>{' '}
                                             and{' '}
-                                            <a href="#" className="text-blue-600 hover:text-blue-800">
+                                            <a href="/privacy" className="text-blue-600 hover:text-blue-800">
                                                 Privacy Policy
                                             </a>
                                         </label>

@@ -11,7 +11,6 @@ export default function Contact() {
     <div className="min-h-screen md:pt-50 pt-23 bg-[#001B5E] text-white px-4 py-16">
   <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
     
-    {/* Left: Contact Info */}
     <div className="space-y-8 text-center lg:text-left">
       <div>
         <h2 className="text-4xl font-bold text-white">
@@ -28,7 +27,7 @@ export default function Contact() {
           <Mail className="w-6 h-6 text-[#00A9FF]" />
           <div>
             <h4 className="font-semibold">Email</h4>
-            <p className="text-white/80 break-all">LocalFix@localfix.lk</p>
+            <p className="text-white/80 break-all">LocalFix@gmail.com</p>
           </div>
         </div>
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
