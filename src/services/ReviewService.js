@@ -50,3 +50,17 @@ export const deleteReview = async (id) => {
         throw e;
     }
 }
+
+export const updateReview = async (updatedData) => {
+    try{
+        const response = await api.put(`/review/editReview/${updatedData.id}`, {
+            rating: updatedData.rating,
+            comment: updatedData.comment
+        });
+        return response.data;
+
+    }catch(e){
+        console.error("cant update review : ",e);
+        throw e;
+    }
+}

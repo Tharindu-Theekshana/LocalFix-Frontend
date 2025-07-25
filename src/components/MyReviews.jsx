@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import Navbar from './Navbar';
-import { deleteReview, getReviewsOfEachCustomer } from '../services/ReviewService';
-import { Star, Edit3, Trash2, User, Mail, Briefcase, AlertTriangle } from 'lucide-react';
+import { deleteReview, getReviewsOfEachCustomer, updateReview } from '../services/ReviewService';
+import { Star, Edit3, Trash2, User, Mail, Briefcase, AlertTriangle, X } from 'lucide-react';
 
 export default function MyReviews() {
 
@@ -13,6 +13,15 @@ export default function MyReviews() {
     const [reviewId, setReviewId] = useState();
     const customerId = localStorage.getItem("userId");
     const name = localStorage.getItem("name");
+
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
+    const [updateData, setUpdateData] = useState({
+        id: null,
+        rating: 0,
+        comment: ''
+    });
+    const [hoverRating, setHoverRating] = useState(0);
 
     useEffect(()=>{
         const fetchReviews = async () => {
@@ -31,9 +40,65 @@ export default function MyReviews() {
     },[]);
     
     const handleUpdate = (reviewId) => {
-        console.log('Update review:', reviewId);
-        // Add your update logic here
-      }; 
+        const reviewToUpdate = reviews.find(review => review.id === reviewId);
+        if (reviewToUpdate) {
+            setUpdateData({
+                id: reviewId,
+                rating: reviewToUpdate.rating,
+                comment: reviewToUpdate.comment
+            });
+            setShowUpdateModal(true);
+        }
+    };  
+
+    const handleUpdateCancel = () => {
+        setShowUpdateModal(false);
+        setUpdateData({ id: null, rating: 0, comment: '' });
+        setHoverRating(0);
+    };
+
+    const handleUpdateConfirm = async () => {
+        if (updateData.rating === 0) {
+            alert('Please select a rating');
+            return;
+        }
+        if (updateData.comment.trim() === '') {
+            alert('Please enter a comment');
+            return;
+        }
+
+        setIsUpdating(true);
+        try {
+
+            const response = await updateReview(updateData);
+            
+            setReviews(prevReviews => 
+                prevReviews.map(review => 
+                    review.id === updateData.id 
+                        ? { ...review, rating: updateData.rating, comment: updateData.comment.trim() }
+                        : review
+                )
+            );
+            
+            alert(response.message);
+            setShowUpdateModal(false);
+            setUpdateData({ id: null, rating: 0, comment: '' });
+            setHoverRating(0);
+        } catch (e) {
+            console.error("error updating review: ", e);
+           
+        } finally {
+            setIsUpdating(false);
+        }
+    };
+
+    const handleRatingClick = (rating) => {
+        setUpdateData(prev => ({ ...prev, rating }));
+    };
+
+    const handleCommentChange = (e) => {
+        setUpdateData(prev => ({ ...prev, comment: e.target.value }));
+    };
     
       const handleDeleteConfirmation = (id) => {
         setReviewId(id);
@@ -91,6 +156,32 @@ export default function MyReviews() {
     
         return stars;
       };
+
+      const renderInteractiveStars = () => {
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+            const isFilled = i <= (hoverRating || updateData.rating);
+            stars.push(
+                <button
+                    key={i}
+                    type="button"
+                    onClick={() => handleRatingClick(i)}
+                    onMouseEnter={() => setHoverRating(i)}
+                    onMouseLeave={() => setHoverRating(0)}
+                    className="focus:outline-none transition-colors duration-150"
+                >
+                    <Star 
+                        className={`w-8 h-8 ${
+                            isFilled 
+                                ? 'fill-yellow-400 text-yellow-400' 
+                                : 'text-gray-300 hover:text-yellow-300'
+                        }`} 
+                    />
+                </button>
+            );
+        }
+        return stars;
+    };
     
       if (loading) {
         return (
@@ -199,6 +290,85 @@ export default function MyReviews() {
               )}
             </div>
           </div>
+
+           {showUpdateModal && (
+                <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-xl shadow-xl max-w-[500px] w-full p-6 max-h-[90vh] overflow-y-auto">
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="text-xl font-semibold text-gray-900">
+                                Update Review
+                            </h3>
+                            <button
+                                onClick={handleUpdateCancel}
+                                disabled={isUpdating}
+                                className="p-1 hover:bg-gray-100 rounded-full transition-colors duration-200"
+                            >
+                                <X className="w-5 h-5 text-gray-500" />
+                            </button>
+                        </div>
+
+                        <div className="space-y-6">
+                            
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-3">
+                                    Rating
+                                </label>
+                                <div className="flex space-x-1 justify-center">
+                                    {renderInteractiveStars()}
+                                </div>
+                                <p className="text-center text-sm text-gray-500 mt-2">
+                                    {updateData.rating > 0 ? `${updateData.rating} star${updateData.rating !== 1 ? 's' : ''}` : 'Select a rating'}
+                                </p>
+                            </div>
+
+                           
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Comment
+                                </label>
+                                <textarea
+                                    value={updateData.comment}
+                                    onChange={handleCommentChange}
+                                    disabled={isUpdating}
+                                    placeholder="Share your experience..."
+                                    rows={4}
+                                    maxLength={500}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none disabled:opacity-50"
+                                />
+                                <p className="text-xs text-gray-500 mt-1">
+                                    {updateData.comment.length}/500 characters
+                                </p>
+                            </div>
+
+                            
+                            <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                                <button
+                                    onClick={handleUpdateCancel}
+                                    disabled={isUpdating}
+                                    className="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleUpdateConfirm}
+                                    disabled={isUpdating || updateData.rating === 0 || updateData.comment.trim() === ''}
+                                    className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 flex items-center justify-center"
+                                >
+                                    {isUpdating ? (
+                                        <>
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                            Updating...
+                                        </>
+                                    ) : (
+                                        'Update Review'
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
           {showDeleteConfirmation && (
         <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
