@@ -17,6 +17,7 @@ import CreateProfile from './components/CreateProfile'
 import AboutUs from './pages/aboutUs'
 import CreateAdmin from './components/CreateAdmin'
 import HandleProfiles from './components/HandleProfiles'
+import TermsAndConditions from './pages/terms&conditions'
 import AllCustomers from './components/AllCustomers'
 import AllWorkers from './components/AllWorkers'
 import MyBookings from './components/MyBookings'
@@ -36,6 +37,7 @@ function App() {
           <Route index element={<Home/>}/>
           <Route path='*' element={<NotFound/>}/>
           <Route path='/aboutus' element={<AboutUs/>}/>
+          <Route path='/terms&conditions' element={<TermsAndConditions/>}/>
           <Route path='/profiles' element={<Profiles/>}/>
           <Route path='/eachProfile' element={<EachProfile/>}/>
           <Route path='/login' element={<Login/>}/>
