@@ -40,14 +40,21 @@ export default function Profiles() {
     }, [location.state]);
 
     const navigate = useNavigate();
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const role = localStorage.getItem('userRole');
 
     const handleViewClick = (id) => {
 
         navigate("/eachProfile", {state: {id}});
     }
 
-    const handleBook = (id) => {
-        console.log("profile id is : " + id);
+    const handleBook = (profileId) => {
+        if(isLoggedIn && role == "customer"){
+          navigate("/makeBooking", {state: {profileId}});
+
+        }else{
+          alert("Login as a customer to hire!");
+        }
 
     }
     if(!profiles || profiles.length === 0){
@@ -144,7 +151,7 @@ export default function Profiles() {
                       onClick={()=>handleViewClick(profile.id)}>
                 View Profile
               </button>
-              <button className="px-4 py-2 text-sm md:text-lg text-white bg-blue-600 rounded-lg hover:bg-blue-700 hover:scale-101 transition-colors duration-200"
+              <button className="px-4 py-2 text-sm md:text-lg text-white bg-blue-600 rounded-lg hover:bg-blue-700 hover:scale-101 transition-colors duration-300"
                       onClick={()=>handleBook(profile.id)}>
                 Hire Now
               </button>

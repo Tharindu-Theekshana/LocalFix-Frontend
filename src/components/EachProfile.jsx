@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Navbar from './Navbar';
 import { getProfileById } from '../services/profileService';
 import { getReviews } from '../services/ReviewService';
@@ -9,6 +9,8 @@ export default function EachProfile() {
 
     const location = useLocation();
     const id = location.state?.id;
+
+    const navigate = useNavigate();
 
     const [profile, setProfile] = useState({});
     const [reviews, setReviews] = useState([]);
@@ -105,6 +107,18 @@ export default function EachProfile() {
           )}
         </div>
       );
+
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      const role = localStorage.getItem('userRole');
+
+      const handleHire = (profileId) => {
+        if(isLoggedIn && role == "customer"){
+          navigate("/makeBooking", {state: {profileId}});
+
+        }else{
+          alert("Login as a customer to hire!");
+        }
+      }
       
 
 
@@ -213,7 +227,9 @@ export default function EachProfile() {
                   </div>
                 </div>
                 
-                <button className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 duration-300 transition-colors mb-3">
+                <button 
+                onClick={()=>{handleHire(profile.id)}}
+                className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 duration-300 transition-colors mb-3">
                   Hire Now
                 </button>
                 

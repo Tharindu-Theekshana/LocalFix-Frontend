@@ -102,8 +102,8 @@ export default function TermsAndConditions() {
             </div>
             
             <button className="mt-[30px]">
-              <Link to="/Contact" className="bg-blue-800 text-white duration-300 font-bold py-3 px-8 rounded-lg">
-                        ContactUs
+              <Link to="/Contact" className="bg-blue-800 text-white duration-300 hover:bg-blue-900 shadow-lg hover:shadow-xl hover:scale-101 font-bold py-3 px-8 rounded-lg">
+                        Contact Us
               </Link>
             </button>
           </div>

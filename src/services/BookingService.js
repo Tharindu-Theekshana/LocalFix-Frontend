@@ -42,3 +42,23 @@ export const getBookingsOfEachCustomer = async (id) => {
         throw e;
     }
 }
+
+export const makeBooking = async (data,customerId,profileId) => {
+    try{
+        const response = await api.post("/booking/makeBooking", {
+            bookingDate: data.bookingDate,
+            bookingTime: data.bookingTime,
+            description: data.description,
+            location: data.location,
+            phoneNumber: data.phoneNumber,
+            urgency: data.urgency,
+            profileId: profileId,
+            customerId: customerId
+        });
+        return response.data;
+
+    }catch(e){
+        console.error("cant make booking : ",e);
+        throw e;
+    }
+}

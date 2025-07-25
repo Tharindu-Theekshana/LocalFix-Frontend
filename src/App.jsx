@@ -24,6 +24,7 @@ import MyBookings from './components/MyBookings'
 import MyReviews from './components/MyReviews'
 import MakeReview from './components/MakeReview'
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import MakeBooking from './components/MakeBooking'
 
 
 
@@ -58,6 +59,7 @@ function App() {
           <Route path='/myReviews' element={<MyReviews/>}/>
           <Route path='/makeReview' element={<MakeReview/>}/>
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path='/makeBooking' element={<MakeBooking/>}/>
         </Routes>
     </Router>
     </>
