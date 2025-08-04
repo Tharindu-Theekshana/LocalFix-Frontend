@@ -18,8 +18,7 @@ export default function MyBookings() {
                 setLoading(true);
                 const response = await getBookingsOfEachCustomer(customerId);
                 setBookings(response);
-                
-
+                               
             }catch(e){
                 console.error("error fetching bookings of each customer : ",e);
             }finally{
