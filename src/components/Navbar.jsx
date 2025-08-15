@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { LogOut, Menu, User, X } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Home from '../pages/Home';
 import { logoutUser } from '../services/AuthService';
 
@@ -11,6 +11,16 @@ export default function Navbar() {
 
   const isLoggedIn = localStorage.getItem('isLoggedIn');
   const role = localStorage.getItem('userRole');
+  const location = useLocation();
+
+  useEffect(() => {
+    if (window.location.hash === "#services") {
+      const section = document.getElementById("services");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, []);
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -19,6 +29,19 @@ export default function Navbar() {
     localStorage.clear();
     navigate('/login');
     setIsOpen(false); 
+  };
+
+  const handleServicesClick = (e) => {
+    e.preventDefault();
+  
+    if (location.pathname === "/") {
+      const section = document.getElementById("services");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate("/#services");
+    }
   };
 
   const handleDashboard = (e) => {
@@ -42,19 +65,13 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Services", href: "#services" },
+    { name: "Services", href: "#",  onClick: handleServicesClick },
     { name: "About", href: "/aboutUs" },
     { name: "Contact", href: "/contact"},
-    ...(isLoggedIn && (role === 'worker' || role === 'admin') ? 
+    ...(isLoggedIn ?  
     [{ name: "Dashboard", href: "#", onClick: handleDashboard }] : 
     [])
     ,
-    ...(isLoggedIn && role === 'customer' ? 
-    [{ name: <div className="flex items-center justify-center rounded-full w-8 h-8">
-    <User size={20} />
-    </div>, href: "#", onClick: handleDashboard }] : 
-    []
-    ),
     { name: (
       isLoggedIn ? 
       <span className="flex items-center gap-1">
