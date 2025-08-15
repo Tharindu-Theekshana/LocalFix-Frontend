@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
 import { useNavigate } from 'react-router-dom';
 import { getProfileByWorkerId } from '../services/profileService';
-import { User, Clock, CheckCircle, XCircle, Award, Star, Trash2, Plus,Eye,Calendar,DollarSign,TrendingUp, AlertTriangle, Briefcase} from 'lucide-react'
+import { User, Clock, CheckCircle, XCircle, Award, Star, Trash2, Plus,Eye,Calendar,DollarSign,TrendingUp, AlertTriangle, Briefcase, Settings, ArrowRight} from 'lucide-react'
 import { deleteAccount } from '../services/UserService';
 
 export default function WorkerDashboard() {
 
     const [hasProfile, setHasProfile] = useState(null);
     const [profile, setProfile] = useState({});
-    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
-    const [isDeleting, setIsDeleting] = useState(false)
     const navigate = useNavigate();
 
     const workerId = localStorage.getItem('userId');
@@ -46,32 +44,6 @@ export default function WorkerDashboard() {
         fetchProfile();
     },[]);
 
-    const handleDeleteConfirmation = () => {
-        setShowDeleteConfirmation(true)
-      }
-    
-      const handleDeleteCancel = () => {
-        setShowDeleteConfirmation(false)
-      }
-
-    const handleDeleteConfirm = async () => {
-        setIsDeleting(true)
-        try{
-
-            const deleteRes = await deleteAccount(workerId);
-            alert(deleteRes.message);
-            await new Promise(resolve => setTimeout(resolve, 2000))
-            console.log("account deleted")
-            localStorage.clear();
-            navigate("/");
-
-        }catch(e){
-            console.error("error in deleting account : ", e);
-        }finally {
-            setIsDeleting(false)
-            setShowDeleteConfirmation(false)
-        }
-    }
     
     const jobSections = [
         { 
@@ -268,7 +240,7 @@ export default function WorkerDashboard() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6 gap-3 md:mb-6 mb-3">
                 {jobSections.map((section, index) => (
-                <div key={index} onClick={()=> handleClick(section.status)} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200 cursor-pointer">
+                <div key={index} onClick={()=> handleClick(section.status)} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-xl transition-shadow duration-200 cursor-pointer">
                     <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
                         <div className={`w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm`}>
@@ -287,7 +259,7 @@ export default function WorkerDashboard() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6 gap-3">
               
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-xl transition-shadow duration-200 cursor-pointer">
                   <div className="flex items-center space-x-3 mb-4">
                     <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
                       <Star className="w-5 h-5 text-purple-600" />
@@ -306,69 +278,32 @@ export default function WorkerDashboard() {
                 </div>
 
                 
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-                      <Trash2 className="w-5 h-5 text-red-600" />
+                <div 
+                  onClick={()=> {navigate("/settings")}}
+                  className="group bg-white backdrop-blur-sm rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-xl transition-shadow duration-200 cursor-pointer"
+                >
+                  <div className="flex items-start justify-between mb-1">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-blue-950 mb-2">Settings</h3>
+                      <p className="text-gray-500 text-sm mb-3">Customize your account preferences</p>                   
                     </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">Account Management</h3>
-                      <p className="text-sm text-gray-600">Manage your account settings</p>
+                    <div className="p-4 rounded-xl bg-blue-500 hover:bg-blue-600 transition-all duration-200 group-hover:scale-110 shadow-lg">
+                      <Settings className="w-6 h-6 text-white" />
                     </div>
                   </div>
-                  <button
-                    onClick={handleDeleteConfirmation}
-                    className="w-full px-4 py-2 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg font-medium transition-colors duration-200"
-                  >
-                    Delete Account
-                  </button>
+                  <div className="flex items-center text-blue-600 font-medium group-hover:text-blue-700 transition-colors">
+                    <span className="text-sm">Manage Settings</span>
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
+
               </div>
             </>
           )}
         </div>
       </div>
 
-      {showDeleteConfirmation && (
-        <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
-            <div className="flex items-center justify-center mb-4">
-              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                <AlertTriangle className="w-6 h-6 text-red-600" />
-              </div>
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 text-center mb-2">
-              Delete Account
-            </h3>
-            <p className="text-gray-600 text-center mb-6">
-              Are you sure you want to delete your account? This action cannot be undone and you will lose all your data, including your profile, job history, and reviews.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <button
-                onClick={handleDeleteCancel}
-                disabled={isDeleting}
-                className="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleDeleteConfirm}
-                disabled={isDeleting}
-                className="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 flex items-center justify-center"
-              >
-                {isDeleting ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    Deleting...
-                  </>
-                ) : (
-                  'Yes, Delete Account'
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      
     
     </>
   )

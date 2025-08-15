@@ -25,6 +25,8 @@ import MyReviews from './components/MyReviews'
 import MakeReview from './components/MakeReview'
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import MakeBooking from './components/MakeBooking'
+import Settings from './components/Settings'
+import ScrollToTop from './components/ScrollToTop'
 
 
 
@@ -34,6 +36,7 @@ function App() {
   return (
     <>
     <Router>
+      <ScrollToTop/>
         <Routes>
           <Route index element={<Home/>}/>
           <Route path='*' element={<NotFound/>}/>
@@ -60,6 +63,7 @@ function App() {
           <Route path='/makeReview' element={<MakeReview/>}/>
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path='/makeBooking' element={<MakeBooking/>}/>
+          <Route path='/settings' element={<Settings/>}/>
         </Routes>
     </Router>
     </>
