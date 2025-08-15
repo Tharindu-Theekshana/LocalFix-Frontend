@@ -93,8 +93,13 @@ export default function WorkerDashboard() {
       const profileId = profile.id;
 
       const handleClick = (status) => {
+        if(status == ""){
+          navigate("/allJobs", {state: {profileId}});
+
+        }else{
 
         navigate("/myJobs", {state: {status,profileId}});
+        }
       }
     
 

@@ -62,3 +62,14 @@ export const makeBooking = async (data,customerId,profileId) => {
         throw e;
     }
 }
+
+export const getAllBookingsOfEachWorker = async (id) => {
+    try{
+        const response = await api.get(`/booking/getAllBookingsOfEachWorker/${id}`);
+        return response.data;
+
+    }catch(e){
+        console.error("cant get all jobs: ",e);
+        throw e;
+    }
+}

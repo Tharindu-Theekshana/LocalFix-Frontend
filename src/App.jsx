@@ -27,6 +27,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import MakeBooking from './components/MakeBooking'
 import Settings from './components/Settings'
 import ScrollToTop from './components/ScrollToTop'
+import AllJobs from './components/AllJobs'
 
 
 
@@ -64,6 +65,7 @@ function App() {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path='/makeBooking' element={<MakeBooking/>}/>
           <Route path='/settings' element={<Settings/>}/>
+          <Route path='/allJobs' element={<AllJobs/>}/>
         </Routes>
     </Router>
     </>
