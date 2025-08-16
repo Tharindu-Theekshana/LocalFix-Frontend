@@ -84,11 +84,11 @@ export default function FooterSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 md:gap-15 gap-5 text-[17px] ">
           <div>
             <h3 className="font-semibold md:mb-3 mb-1 md:text-[20px] text-lg">Popular Services</h3>
-            {popularServices.map((item) => (
+            {popularServices.map((service) => (
               <p
-                onClick={()=>handleClick(item.value)}
-                key={item} className="w-[80px] block text-white/80 hover:text-white hover:border-b-1 duration-300 transition">
-                {item.name}
+                onClick={()=>handleClick(service.value)}
+                key={service} className="w-[80px] block text-white/80 hover:text-white hover:border-b-1 duration-300 transition">
+                {service.name}
               </p>
             ))}
           </div>
@@ -105,9 +105,9 @@ export default function FooterSection() {
 
           <div>
             <h3 className="font-semibold mb-3 text-[18px]">Quick Links</h3>
-            {QuickLinks.map((item) => (
-              <a key={item} href={item.link} className="w-[101px] block text-white/80 hover:text-white hover:border-b-1 duration-300 transition ">
-                {item.name}
+            {QuickLinks.map((link) => (
+              <a key={link} href={link.link} className="w-[101px] block text-white/80 hover:text-white hover:border-b-1 duration-300 transition ">
+                {link.name}
               </a>
             ))}
           </div>
