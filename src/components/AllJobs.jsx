@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getAllBookingsOfEachWorker, updateBookingStatus } from '../services/BookingService';
 import Navbar from './Navbar';
 import { useLocation } from 'react-router-dom';
-import { Calendar, Clock, MapPin, Phone, FileText, User, AlertCircle, CheckCircle, XCircle, Hourglass, Ban } from 'lucide-react'
+import { Calendar, Clock, MapPin, Phone, FileText, CheckCircle, XCircle, Hourglass, Ban, ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function AllJobs() {
 
@@ -13,6 +13,8 @@ export default function AllJobs() {
     const [selectedStatus, setSelectedStatus] = useState('all')
     const [isLoading, setIsLoading] = useState(true)
     const [updatingJobId, setUpdatingJobId] = useState(null)
+    const [currentDate, setCurrentDate] = useState(new Date())
+    const [selectedDate, setSelectedDate] = useState(null)
 
     useEffect(()=>{
         const fetchAllJobs = async () => {
@@ -33,37 +35,51 @@ export default function AllJobs() {
     },[]);
 
     useEffect(() => {
-        if (selectedStatus === 'all') {
-          setFilteredJobs(allJobs)
-        } else {
-          setFilteredJobs(allJobs.filter(job => job.status === selectedStatus))
+        let filtered = allJobs;
+        
+        if (selectedStatus !== 'all') {
+          filtered = filtered.filter(job => job.status === selectedStatus)
         }
-      }, [selectedStatus, allJobs])
+        
+        if (selectedDate) {
+          filtered = filtered.filter(job => {
+            const jobDate = new Date(job.bookingDate).toDateString()
+            return jobDate === selectedDate.toDateString()
+          })
+        }
+        
+        setFilteredJobs(filtered)
+      }, [selectedStatus, allJobs, selectedDate])
     
       const getStatusConfig = (status) => {
         const configs = {
           pending: {
             color: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+            calendarColor: 'bg-yellow-400',
             icon: Hourglass,
             label: 'Pending'
           },
           approved: {
             color: 'bg-blue-100 text-blue-800 border-blue-200',
+            calendarColor: 'bg-blue-500',
             icon: CheckCircle,
             label: 'Approved'
           },
           declined: {
             color: 'bg-red-100 text-red-800 border-red-200',
+            calendarColor: 'bg-red-500',
             icon: XCircle,
             label: 'Declined'
           },
           completed: {
             color: 'bg-green-100 text-green-800 border-green-200',
+            calendarColor: 'bg-green-500',
             icon: CheckCircle,
             label: 'Completed'
           },
           cancelled: {
             color: 'bg-gray-100 text-gray-800 border-gray-200',
+            calendarColor: 'bg-gray-400',
             icon: Ban,
             label: 'Cancelled'
           }
@@ -124,6 +140,193 @@ export default function AllJobs() {
         declined: allJobs.filter(job => job.status === 'declined').length,
         cancelled: allJobs.filter(job => job.status === 'cancelled').length,
       }
+
+      const getDaysInMonth = (date) => {
+        return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+      }
+      
+      const getFirstDayOfMonth = (date) => {
+        return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
+      }
+      
+      const getJobsForDate = (date) => {
+        return allJobs.filter(job => {
+          const jobDate = new Date(job.bookingDate)
+          return jobDate.toDateString() === date.toDateString()
+        })
+      }
+      
+      const isToday = (date) => {
+        const today = new Date()
+        return date.toDateString() === today.toDateString()
+      }
+      
+      const isSameDate = (date1, date2) => {
+        if (!date1 || !date2) return false
+        return date1.toDateString() === date2.toDateString()
+      }
+      
+      const navigateMonth = (direction) => {
+        setCurrentDate(prevDate => {
+          const newDate = new Date(prevDate)
+          newDate.setMonth(newDate.getMonth() + direction)
+          return newDate
+        })
+      }
+      
+      const generateCalendarDays = () => {
+        const daysInMonth = getDaysInMonth(currentDate)
+        const firstDay = getFirstDayOfMonth(currentDate)
+        const days = []
+        
+        for (let i = 0; i < firstDay; i++) {
+          days.push(null)
+        }
+        
+        for (let day = 1; day <= daysInMonth; day++) {
+          const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+          days.push(date)
+        }
+        
+        return days
+      }
+
+      const CalendarView = () => {
+        const days = generateCalendarDays()
+        const monthYear = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+        const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        
+        return (
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-blue-100/50 p-6 mb-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-blue-950">Job Calendar</h2>
+              <div className="flex items-center space-x-4">
+                <button
+                  onClick={() => navigateMonth(-1)}
+                  className="p-2 hover:bg-blue-100 rounded-lg transition-colors"
+                >
+                  <ChevronLeft className="w-5 h-5 text-blue-600" />
+                </button>
+                <h3 className="text-lg font-semibold text-blue-950 min-w-48 text-center">
+                  {monthYear}
+                </h3>
+                <button
+                  onClick={() => navigateMonth(1)}
+                  className="p-2 hover:bg-blue-100 rounded-lg transition-colors"
+                >
+                  <ChevronRight className="w-5 h-5 text-blue-600" />
+                </button>
+              </div>
+            </div>
+            
+            <div className="flex flex-wrap gap-4 mb-6 justify-center">
+              {['pending', 'approved', 'declined', 'completed', 'cancelled'].map((status) => {
+                const config = getStatusConfig(status);
+                return (
+                  <div key={status} className="flex items-center space-x-2">
+                    <div className={`w-3 h-3 rounded-full ${config.calendarColor}`}></div>
+                    <span className="text-sm font-medium text-gray-700 capitalize">{status}</span>
+                  </div>
+                );
+              })}
+            </div>
+            
+            <div className="grid grid-cols-7 gap-1">
+              {weekDays.map(day => (
+                <div key={day} className="p-3 text-center text-sm font-semibold text-blue-700">
+                  {day}
+                </div>
+              ))}
+              
+              {days.map((date, index) => {
+                if (!date) {
+                  return <div key={index} className="p-3"></div>
+                }
+                
+                const dayJobs = getJobsForDate(date)
+                const jobsByStatus = dayJobs.reduce((acc, job) => {
+                  acc[job.status] = (acc[job.status] || 0) + 1
+                  return acc
+                }, {})
+                
+                return (
+                  <div
+                    key={index}
+                    onClick={() => setSelectedDate(isSameDate(date, selectedDate) ? null : date)}
+                    className={`p-2 min-h-16 border rounded-lg cursor-pointer transition-all duration-200 hover:shadow-md ${
+                      isToday(date) 
+                        ? 'bg-blue-200 border-blue-400 shadow-md' 
+                        : isSameDate(date, selectedDate)
+                        ? 'bg-blue-100 border-blue-300'
+                        : 'bg-white border-gray-200 hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className={`text-sm font-medium mb-1 ${
+                      isToday(date) ? 'text-blue-900' : 'text-gray-900'
+                    }`}>
+                      {date.getDate()}
+                    </div>
+                    
+                    <div className="space-y-1">
+                      {Object.entries(jobsByStatus).slice(0, 3).map(([status, count]) => {
+                        const config = getStatusConfig(status)
+                        return (
+                          <div
+                            key={status}
+                            className={`w-full h-1.5 rounded-full ${config.calendarColor}`}
+                            title={`${count} ${status} job${count > 1 ? 's' : ''}`}
+                          ></div>
+                        )
+                      })}
+                      {Object.keys(jobsByStatus).length > 3 && (
+                        <div className="text-xs text-gray-500 text-center">
+                          +{Object.keys(jobsByStatus).length - 3}
+                        </div>
+                      )}
+                    </div>
+                    
+                    {dayJobs.length > 0 && (
+                      <div className="text-xs text-center mt-1 font-medium text-gray-600">
+                        {dayJobs.length}
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+            
+            {selectedDate && (
+              <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+                <h4 className="font-semibold text-blue-950 mb-2">
+                  Jobs for {formatDate(selectedDate.toISOString())}
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {getJobsForDate(selectedDate).map(job => {
+                    const config = getStatusConfig(job.status)
+                    return (
+                      <span
+                        key={job.id}
+                        className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${config.color}`}
+                      >
+                        Job #{job.id} - {config.label}
+                      </span>
+                    )
+                  })}
+                  {getJobsForDate(selectedDate).length === 0 && (
+                    <span className="text-sm text-gray-500">No jobs scheduled for this date</span>
+                  )}
+                </div>
+                <button
+                  onClick={() => setSelectedDate(null)}
+                  className="mt-2 text-sm text-blue-600 hover:text-blue-800 font-medium"
+                >
+                  Clear date filter
+                </button>
+              </div>
+            )}
+          </div>
+        )
+      }
     
       if (isLoading) {
         return (
@@ -154,6 +357,8 @@ export default function AllJobs() {
                   Manage and track all your job bookings in one place
                 </p>
               </div>
+
+              <CalendarView />
     
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
                 {Object.entries(statusCounts).map(([status, count]) => (
@@ -175,6 +380,35 @@ export default function AllJobs() {
                   </div>
                 ))}
               </div>
+
+              {(selectedStatus !== 'all' || selectedDate) && (
+                <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-blue-100/50 p-4 mb-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <span className="text-sm font-medium text-blue-950">Active Filters:</span>
+                      {selectedStatus !== 'all' && (
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                          Status: {selectedStatus}
+                        </span>
+                      )}
+                      {selectedDate && (
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                          Date: {formatDate(selectedDate.toISOString())}
+                        </span>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => {
+                        setSelectedStatus('all')
+                        setSelectedDate(null)
+                      }}
+                      className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                    >
+                      Clear All Filters
+                    </button>
+                  </div>
+                </div>
+              )}
     
               {filteredJobs.length === 0 ? (
                 <div className="text-center py-12">
@@ -183,9 +417,9 @@ export default function AllJobs() {
                   </div>
                   <h3 className="text-xl font-semibold text-blue-950 mb-2">No Jobs Found</h3>
                   <p className="text-blue-700/70">
-                    {selectedStatus === 'all' 
+                    {selectedStatus === 'all' && !selectedDate
                       ? 'You don\'t have any jobs yet.' 
-                      : `No ${selectedStatus} jobs found.`}
+                      : `No jobs found matching the current filters.`}
                   </p>
                 </div>
               ) : (
