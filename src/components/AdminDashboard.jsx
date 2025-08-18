@@ -12,7 +12,7 @@ export default function AdminDashboard() {
   const profileByStatus = [
     { name: "Pending Profiles", value: "pending", icon: Clock, color: "bg-yellow-500", count: 23 },
     { name: "Approved Profiles", value: "approved", icon: CheckCircle, color: "bg-green-500", count: 189 },
-    { name: "Declined Profiles", value: "declined", icon: XCircle, color: "bg-red-500", count: 12 },
+    { name: "Suspended Profiles", value: "declined", icon: XCircle, color: "bg-red-500", count: 12 },
   ];
 
   const handleCreateAdmin = () => {

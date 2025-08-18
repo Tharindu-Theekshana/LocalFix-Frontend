@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import { getBookingsOfEachWorkerByStatus, updateBookingStatus } from '../services/BookingService';
-import { Calendar, Clock, MapPin, Phone, AlertCircle, CheckCircle, XCircle, Clock3, Loader2 } from 'lucide-react';
+import { Calendar, Clock, MapPin, Phone, AlertCircle, CheckCircle, XCircle, Clock3, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function MyJobs() {
     const location = useLocation();
@@ -12,6 +12,8 @@ export default function MyJobs() {
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(null);
 
     const statusConfig = {
         pending: {
@@ -68,17 +70,14 @@ export default function MyJobs() {
     }, [profileId, status]);
 
     const handleStatusChange = async (bookingId, newStatus) => {
-
         try {
-            
             setBookings(prevBookings =>
                 prevBookings.map(booking =>
                     booking.id === bookingId ? { ...booking, status: newStatus } : booking
                 )
             );
 
-            await updateBookingStatus(bookingId,newStatus);
-         
+            await updateBookingStatus(bookingId, newStatus);
         } catch (error) {
             console.error("Error updating booking status:", error);
             
@@ -121,6 +120,94 @@ export default function MyJobs() {
             case 'completed': return 'Completed Jobs';
             default: return 'My Jobs';
         }
+    };
+
+    const getDaysInMonth = (date) => {
+        return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    };
+
+    const getFirstDayOfMonth = (date) => {
+        return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+    };
+
+    const getMonthName = (date) => {
+        return date.toLocaleString('default', { month: 'long', year: 'numeric' });
+    };
+
+    const isToday = (date, day) => {
+        const today = new Date();
+        return date.getFullYear() === today.getFullYear() &&
+               date.getMonth() === today.getMonth() &&
+               day === today.getDate();
+    };
+
+    const hasJobOnDate = (day) => {
+        const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        return bookings.some(booking => booking.bookingDate === dateStr);
+    };
+
+    const getJobsForDate = (day) => {
+        const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        return bookings.filter(booking => booking.bookingDate === dateStr);
+    };
+
+    const navigateMonth = (direction) => {
+        setCurrentDate(prev => {
+            const newDate = new Date(prev);
+            newDate.setMonth(prev.getMonth() + direction);
+            return newDate;
+        });
+        setSelectedDate(null);
+    };
+
+    const displayedBookings = selectedDate 
+        ? getJobsForDate(selectedDate)
+        : bookings;
+
+    const renderCalendar = () => {
+        const daysInMonth = getDaysInMonth(currentDate);
+        const firstDay = getFirstDayOfMonth(currentDate);
+        const days = [];
+
+        for (let i = 0; i < firstDay; i++) {
+            days.push(<div key={`empty-${i}`} className="h-10"></div>);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const hasJob = hasJobOnDate(day);
+            const jobsOnDate = getJobsForDate(day);
+            const isSelected = selectedDate === day;
+            const todayClass = isToday(currentDate, day) ? 'bg-blue-600 text-white' : '';
+
+            days.push(
+                <div
+                    key={day}
+                    className={`h-10 flex items-center justify-center text-sm cursor-pointer rounded-lg transition-colors duration-200 relative
+                        ${isSelected ? 'bg-blue-500 text-white' : ''}
+                        ${!isSelected && todayClass ? todayClass : ''}
+                        ${!isSelected && !todayClass && hasJob ? 'bg-green-100 text-green-900 hover:bg-green-200' : ''}
+                        ${!isSelected && !todayClass && !hasJob ? 'hover:bg-gray-100' : ''}
+                    `}
+                    onClick={() => setSelectedDate(selectedDate === day ? null : day)}
+                >
+                    <span className="font-medium">{day}</span>
+                    {hasJob && (
+                        <div className={`absolute top-1 right-1 w-2 h-2 rounded-full 
+                            ${isSelected || todayClass ? 'bg-white' : 'bg-green-600'}
+                        `}></div>
+                    )}
+                    {jobsOnDate.length > 1 && (
+                        <div className={`absolute bottom-1 right-1 text-xs font-bold
+                            ${isSelected || todayClass ? 'text-white' : 'text-green-600'}
+                        `}>
+                            {jobsOnDate.length}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        return days;
     };
 
     if (loading) {
@@ -172,23 +259,96 @@ export default function MyJobs() {
                     <div className="mb-8">
                         <h2 className="text-3xl md:text-4xl font-bold text-center text-blue-950 mb-2">{getStatusTitle()}</h2>
                         <p className="text-gray-600 md:text-lg text-center">
-                            {bookings.length} {bookings.length === 1 ? 'job' : 'jobs'} found
+                            {displayedBookings.length} {displayedBookings.length === 1 ? 'job' : 'jobs'} found
                         </p>
                     </div>
 
-                    {bookings.length === 0 ? (
+                    {(status === 'approved') && bookings.length > 0 && (
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
+                            <div className="p-6">
+                                <div className="flex items-center justify-between mb-6">
+                                    <h2 className="text-xl font-semibold text-gray-900">Jobs Calendar</h2>
+                                    <div className="flex items-center gap-4">
+                                        <button
+                                            onClick={() => navigateMonth(-1)}
+                                            className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                                        >
+                                            <ChevronLeft className="w-5 h-5 text-gray-600" />
+                                        </button>
+                                        <h3 className="text-lg font-medium text-gray-900 min-w-[200px] text-center">
+                                            {getMonthName(currentDate)}
+                                        </h3>
+                                        <button
+                                            onClick={() => navigateMonth(1)}
+                                            className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                                        >
+                                            <ChevronRight className="w-5 h-5 text-gray-600" />
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-7 gap-1 mb-2">
+                                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                                        <div key={day} className="h-10 flex items-center justify-center text-sm font-medium text-gray-600">
+                                            {day}
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="grid grid-cols-7 gap-1">
+                                    {renderCalendar()}
+                                </div>
+
+                                <div className="flex items-center justify-center gap-6 mt-6 text-sm text-gray-600">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                                        <span>Today</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-3 h-3 bg-green-100 border border-green-300 rounded-full"></div>
+                                        <span>Has Job</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                                        <span>Selected Date</span>
+                                    </div>
+                                </div>
+
+                                {selectedDate && (
+                                    <div className="mt-4 p-4 bg-green-50 rounded-lg">
+                                        <p className="text-sm text-green-800 text-center">
+                                            Showing jobs for {formatDate(`${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate).padStart(2, '0')}`)}
+                                            <button 
+                                                onClick={() => setSelectedDate(null)}
+                                                className="ml-2 text-green-600 hover:text-green-800 underline"
+                                            >
+                                                Show all jobs
+                                            </button>
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {displayedBookings.length === 0 ? (
                         <div className="text-center py-16">
                             <div className="mx-auto h-24 w-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                                 <Clock3 className="h-12 w-12 text-gray-400" />
                             </div>
-                            <h3 className="text-lg font-medium text-gray-900 mb-2">No {status} jobs found</h3>
+                            <h3 className="text-lg font-medium text-gray-900 mb-2">
+                                {selectedDate ? `No ${status} jobs on this date` : `No ${status} jobs found`}
+                            </h3>
                             <p className="text-gray-500">
-                                You don't have any {status} jobs at the moment.
+                                {selectedDate 
+                                    ? `You don't have any ${status} jobs scheduled for this date.`
+                                    : `You don't have any ${status} jobs at the moment.`
+                                }
                             </p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 gap-4">
-                            {bookings.map((booking) => {
+                            {displayedBookings.map((booking) => {
                                 const StatusIcon = statusConfig[booking.status]?.icon || Clock3;
                                 const statusStyle = statusConfig[booking.status]?.color || 'bg-gray-100 text-gray-800 border-gray-200';
                                 const statusLabel = statusConfig[booking.status]?.label || booking.status;
@@ -200,7 +360,6 @@ export default function MyJobs() {
                                     >
                                         <div className="p-6 pb-4">
                                             <div className="flex items-center justify-between mb-4">
-                                               
                                                 <div className="flex items-center space-x-2">
                                                     <span className={`inline-flex items-center md:text-lg px-2.5 py-0.5 rounded-full text-xs font-medium border ${statusStyle}`}>
                                                         <StatusIcon className="w-3 md:w-4 md:h-4 h-3 mr-1" />
@@ -265,7 +424,6 @@ export default function MyJobs() {
                                                 </div>
                                             ) : booking.status === 'approved' ? (
                                                 <div className="flex justify-between space-x-3 items-center">
-                                                   
                                                     <button 
                                                         onClick={() => handleStatusChange(booking.id, 'completed')}
                                                         className="bg-blue-600 flex-1 hover:bg-blue-700 text-white md:text-lg py-2 px-4 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center justify-center"
@@ -283,7 +441,6 @@ export default function MyJobs() {
                                                 </div>
                                             ) : (
                                                 <div className="flex justify-center items-center">
-                                                   
                                                     <span className="text-xs md:text-sm text-gray-600">
                                                         {booking.status === 'completed' ? 'Job Completed' : 
                                                          booking.status === 'declined' ? 'Job Declined' : 
