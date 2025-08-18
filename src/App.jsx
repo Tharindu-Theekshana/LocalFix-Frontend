@@ -28,6 +28,7 @@ import MakeBooking from './components/MakeBooking'
 import Settings from './components/Settings'
 import ScrollToTop from './components/ScrollToTop'
 import AllJobs from './components/AllJobs'
+import EditBooking from './components/EditBooking'
 
 
 
@@ -66,6 +67,7 @@ function App() {
           <Route path='/makeBooking' element={<MakeBooking/>}/>
           <Route path='/settings' element={<Settings/>}/>
           <Route path='/allJobs' element={<AllJobs/>}/>
+          <Route path='/editBooking' element={<EditBooking/>}/>
         </Routes>
     </Router>
     </>

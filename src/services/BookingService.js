@@ -73,3 +73,22 @@ export const getAllBookingsOfEachWorker = async (id) => {
         throw e;
     }
 }
+
+export const editBooking = async (id,data) => {
+    try{
+        const response = await api.put("/booking/editBooking", {
+            id: id,
+            bookingDate: data.bookingDate,
+            bookingTime: data.bookingTime,
+            description: data.description,
+            location: data.location,
+            phoneNumber: data.phoneNumber,
+            urgency: data.urgency,
+        });
+        return response.data;
+
+    }catch(e){
+        console.error("cant make booking : ",e);
+        throw e;
+    }
+}

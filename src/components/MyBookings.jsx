@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getBookingsOfEachCustomer, updateBookingStatus } from '../services/BookingService';
 import Navbar from './Navbar';
-import { Calendar, Clock, MapPin, Phone, AlertCircle, CheckCircle, XCircle, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, Clock, MapPin, Phone, AlertCircle, CheckCircle, XCircle, Star, ChevronLeft, ChevronRight, Edit3 } from 'lucide-react';
 import { useNavigate } from 'react-router';
 
 export default function MyBookings() {
@@ -10,6 +10,7 @@ export default function MyBookings() {
     const [loading, setLoading] = useState(true);
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedStatus, setSelectedStatus] = useState('all');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -73,6 +74,10 @@ export default function MyBookings() {
         }
     };
 
+    const handleEditBooking = (booking) => {
+        navigate("/editBooking", { state: { booking } });
+    };
+
     const handleMakeReview = (profileId) => {
         navigate("/makeReview", { state: { profileId } });
     };
@@ -132,9 +137,37 @@ export default function MyBookings() {
         setSelectedDate(null);
     };
 
-    const displayedBookings = selectedDate 
-        ? getBookingsForDate(selectedDate)
-        : bookings;
+    const canEditBooking = (status) => {
+        return ['pending', 'approved'].includes(status.toLowerCase());
+    };
+
+    const displayedBookings = React.useMemo(() => {
+        let filtered = bookings;
+        
+        if (selectedStatus !== 'all') {
+            filtered = filtered.filter(booking => booking.status.toLowerCase() === selectedStatus);
+        }
+        
+        if (selectedDate) {
+            filtered = getBookingsForDate(selectedDate);
+            if (selectedStatus !== 'all') {
+                filtered = filtered.filter(booking => booking.status.toLowerCase() === selectedStatus);
+            }
+        }
+        
+        return filtered;
+    }, [bookings, selectedStatus, selectedDate]);
+
+    const getStatusCounts = () => {
+        return {
+            all: bookings.length,
+            pending: bookings.filter(b => b.status.toLowerCase() === 'pending').length,
+            approved: bookings.filter(b => b.status.toLowerCase() === 'approved').length,
+            completed: bookings.filter(b => b.status.toLowerCase() === 'completed').length,
+            cancelled: bookings.filter(b => b.status.toLowerCase() === 'cancelled').length,
+            declined: bookings.filter(b => b.status.toLowerCase() === 'declined').length,
+        };
+    };
 
     const renderCalendar = () => {
         const daysInMonth = getDaysInMonth(currentDate);
@@ -209,6 +242,63 @@ export default function MyBookings() {
 
                     <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
                         <div className="p-6">
+                            <h2 className="text-xl font-semibold text-gray-900 mb-4">Filter by Status</h2>
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                                {Object.entries(getStatusCounts()).map(([status, count]) => (
+                                    <button
+                                        key={status}
+                                        onClick={() => setSelectedStatus(status)}
+                                        className={`p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
+                                            selectedStatus === status 
+                                                ? 'border-blue-500 bg-blue-50 shadow-md' 
+                                                : 'border-gray-200 bg-white hover:border-blue-200 hover:bg-blue-25'
+                                        }`}
+                                    >
+                                        <div className="text-center">
+                                            <div className="text-2xl font-bold text-blue-950 mb-1">{count}</div>
+                                            <div className="text-sm font-medium text-gray-700 capitalize">
+                                                {status === 'all' ? 'Total' : status}
+                                            </div>
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {(selectedStatus !== 'all' || selectedDate) && (
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-6">
+                            <div className="p-4">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center space-x-4">
+                                        <span className="text-sm font-medium text-gray-900">Active Filters:</span>
+                                        {selectedStatus !== 'all' && (
+                                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                Status: {selectedStatus.charAt(0).toUpperCase() + selectedStatus.slice(1)}
+                                            </span>
+                                        )}
+                                        {selectedDate && (
+                                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                Date: {formatDate(`${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate).padStart(2, '0')}`)}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <button
+                                        onClick={() => {
+                                            setSelectedStatus('all');
+                                            setSelectedDate(null);
+                                        }}
+                                        className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                                    >
+                                        Clear All Filters
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
+                        <div className="p-6">
                             <div className="flex items-center justify-between mb-6">
                                 <h2 className="text-xl font-semibold text-gray-900">Booking Calendar</h2>
                                 <div className="flex items-center gap-4">
@@ -265,7 +355,7 @@ export default function MyBookings() {
                                             onClick={() => setSelectedDate(null)}
                                             className="ml-2 text-blue-600 hover:text-blue-800 underline"
                                         >
-                                            Show all bookings
+                                            Clear date filter
                                         </button>
                                     </p>
                                 </div>
@@ -278,11 +368,11 @@ export default function MyBookings() {
                             <div className="bg-white rounded-lg shadow-sm p-8">
                                 <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                                    {selectedDate ? 'No bookings on this date' : 'No bookings found'}
+                                    {selectedDate || selectedStatus !== 'all' ? 'No bookings match your filters' : 'No bookings found'}
                                 </h3>
                                 <p className="text-gray-600">
-                                    {selectedDate 
-                                        ? 'You don\'t have any bookings scheduled for this date.' 
+                                    {selectedDate || selectedStatus !== 'all'
+                                        ? 'Try adjusting your filters to see more results.' 
                                         : 'You haven\'t made any bookings yet.'
                                     }
                                 </p>
@@ -299,10 +389,22 @@ export default function MyBookings() {
                                                     Booked on {formatDate(booking.bookedDate)}
                                                 </p>
                                             </div>
-                                            <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs md:text-sm font-medium border ${getStatusColor(booking.status)}`}>
-                                                {getStatusIcon(booking.status)}
-                                                {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
-                                            </span>
+                                            <div className="flex items-center gap-3">
+                                                <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs md:text-sm font-medium border ${getStatusColor(booking.status)}`}>
+                                                    {getStatusIcon(booking.status)}
+                                                    {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                                                </span>
+                                                
+                                                {canEditBooking(booking.status) && (
+                                                    <button
+                                                        onClick={() => handleEditBooking(booking)}
+                                                        className="p-2 bg-white hover:bg-blue-50 border border-blue-200 hover:border-blue-300 rounded-lg transition-all duration-200 group shadow-sm hover:shadow-md"
+                                                        title="Edit Booking"
+                                                    >
+                                                        <Edit3 className="w-4 h-4 text-blue-600 group-hover:text-blue-700" />
+                                                    </button>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
 
@@ -347,27 +449,37 @@ export default function MyBookings() {
                                         </div>
                                     </div>
 
-                                    <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
-                                        {booking.status.toLowerCase() === 'approved' && (
-                                            <button
-                                                onClick={() => handleCancelBooking(booking.id, "cancelled")}
-                                                className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
-                                            >
-                                                <XCircle className="w-4 h-4 md:w-5 md:h-5" />
-                                                Cancel Booking
-                                            </button>
-                                        )}
+                                    {(booking.status.toLowerCase() === 'approved' || booking.status.toLowerCase() === 'completed') && (
+                                        <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                                            {booking.status.toLowerCase() === 'approved' && (
+                                                <button
+                                                    onClick={() => handleCancelBooking(booking.id, "cancelled")}
+                                                    className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+                                                >
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="p-1 bg-white/20 rounded-full">
+                                                            <XCircle className="w-4 h-4" />
+                                                        </div>
+                                                        <span>Cancel Booking</span>
+                                                    </div>
+                                                </button>
+                                            )}
 
-                                        {booking.status.toLowerCase() === 'completed' && (
-                                            <button
-                                                onClick={() => handleMakeReview(booking.profileId)}
-                                                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
-                                            >
-                                                <Star className="w-4 h-4 md:w-5 md:h-5" />
-                                                Make Review
-                                            </button>
-                                        )}
-                                    </div>
+                                            {booking.status.toLowerCase() === 'completed' && (
+                                                <button
+                                                    onClick={() => handleMakeReview(booking.profileId)}
+                                                    className="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+                                                >
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="p-1 bg-white/20 rounded-full">
+                                                            <Star className="w-4 h-4" />
+                                                        </div>
+                                                        <span>Make Review</span>
+                                                    </div>
+                                                </button>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                         </div>
