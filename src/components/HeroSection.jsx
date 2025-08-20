@@ -14,7 +14,8 @@ export default function HeroSection() {
     'Painter',
     'Welder',
     'Automobile',
-    'Cleaner'
+    'Cleaner',
+    'Mason'
   ];
 
   const navigate = useNavigate();

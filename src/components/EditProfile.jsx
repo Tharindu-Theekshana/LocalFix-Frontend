@@ -75,14 +75,14 @@ export default function EditProfile() {
       
       // Add new images only
       const newImages = galleryFiles.filter(imgObj => imgObj.file);
-      console.log('New images to upload:', newImages.length); // Debug log
       
       newImages.forEach((imgObj) => {
         formData.append('images', imgObj.file);
       });
       
       const profileId = profile.id;
-      await updateProfile(profileId, formData);
+      const response = await updateProfile(profileId, formData);
+      alert(response.message);
       
       // After successful save, update the state
       setGalleryFiles(prevFiles => 

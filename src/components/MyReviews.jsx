@@ -378,7 +378,7 @@ export default function MyReviews() {
               </div>
             </div>
             <h3 className="text-lg font-semibold text-gray-900 text-center mb-2">
-              Delete Account
+              Delete Review
             </h3>
             <p className="text-gray-600 text-center mb-6">
               Are you sure you want to delete this review? 
@@ -402,7 +402,7 @@ export default function MyReviews() {
                     Deleting...
                   </>
                 ) : (
-                  'Yes, Delete Account'
+                  'Yes, Delete Review'
                 )}
               </button>
             </div>
