@@ -262,7 +262,6 @@ export default function CreateProfile() {
                         </div>
                     </div>
 
-                    {/* Bio and Description */}
                     <div className="mb-8">
                         <div className="mb-6">
                             <label className="block text-sm font-medium text-blue-900 mb-2">
@@ -293,7 +292,6 @@ export default function CreateProfile() {
                         </div>
                     </div>
 
-                    {/* Work Gallery */}
                     <div className="mb-8">
                         <h2 className="text-xl font-semibold text-blue-900 mb-4 flex items-center gap-2">
                             <Image className="w-5 h-5" />
@@ -341,7 +339,6 @@ export default function CreateProfile() {
                         </div>
                     </div>
 
-                    {/* Submit Button */}
                     <div className="text-center">
                         <button
                             type="submit"
