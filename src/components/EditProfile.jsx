@@ -51,29 +51,24 @@ export default function EditProfile() {
     try {
       const formData = new FormData();
       
-      // Get existing image IDs that should be kept
       const existingImageIds = galleryFiles
         .filter(imgObj => imgObj.isExisting && imgObj.imageId)
         .map(imgObj => imgObj.imageId);
       
-      console.log('Existing image IDs to keep:', existingImageIds); // Debug log
+      console.log('Existing image IDs to keep:', existingImageIds); 
       
-      // Prepare profile data
       const { images, profileImage, ...profileDto } = profile;
       profileDto.existingImageIds = existingImageIds;
       
       formData.append('profile', new Blob([JSON.stringify(profileDto)], { type: 'application/json' }));
       
-      // Handle profile image
       if (profileImageFile) {
         formData.append('profileImage', profileImageFile);
       } else {
-        // Add an empty file or blob to satisfy the backend
         formData.append('profileImage', new Blob([], { type: 'application/octet-stream' }), 'empty.jpg');
       }
       
       
-      // Add new images only
       const newImages = galleryFiles.filter(imgObj => imgObj.file);
       
       newImages.forEach((imgObj) => {
@@ -84,7 +79,6 @@ export default function EditProfile() {
       const response = await updateProfile(profileId, formData);
       alert(response.message);
       
-      // After successful save, update the state
       setGalleryFiles(prevFiles => 
         prevFiles.map(imgObj => ({
           ...imgObj,
@@ -125,8 +119,8 @@ export default function EditProfile() {
           { 
             preview: reader.result, 
             file: file,
-            isExisting: false, // Mark as new image
-            imageId: null      // New images don't have IDs yet
+            isExisting: false, 
+            imageId: null      
           }
         ]));
       };
@@ -345,7 +339,6 @@ export default function EditProfile() {
                       >
                         &times;
                       </button>
-                      {/* Visual indicator for new vs existing images */}
                       {!imgObj.isExisting && (
                         <span className="absolute top-2 left-2 bg-green-600 text-white text-xs px-2 py-1 rounded">
                           New
