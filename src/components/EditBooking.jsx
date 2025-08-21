@@ -26,7 +26,6 @@ export default function EditBooking() {
             return;
         }
     
-        // Pre-populate form with existing booking data, ensuring all values are strings
         setFormData({
             bookingDate: String(bookingData.bookingDate || ''),
             bookingTime: String(bookingData.bookingTime || ''),
@@ -50,7 +49,6 @@ export default function EditBooking() {
             [name]: value
         }));
         
-        // Clear error when user starts typing
         if (errors[name]) {
             setErrors(prev => ({
                 ...prev,
@@ -77,7 +75,6 @@ export default function EditBooking() {
             newErrors.bookingTime = 'Booking time is required';
         }
     
-        // Safe string handling for description
         const description = String(formData.description || '').trim();
         if (!description) {
             newErrors.description = 'Service description is required';
@@ -85,7 +82,6 @@ export default function EditBooking() {
             newErrors.description = 'Description must be at least 10 characters long';
         }
     
-        // Safe string handling for location
         const location = String(formData.location || '').trim();
         if (!location) {
             newErrors.location = 'Location is required';
