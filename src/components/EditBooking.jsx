@@ -91,7 +91,6 @@ export default function EditBooking() {
             newErrors.urgency = 'Urgency level is required';
         }
     
-        // Safe string handling for phoneNumber
         const phoneNumber = String(formData.phoneNumber || '').trim();
         if (!phoneNumber) {
             newErrors.phoneNumber = 'Phone number is required';
@@ -152,7 +151,6 @@ export default function EditBooking() {
             <Navbar />
             <div className="min-h-screen pt-22 bg-gray-50 py-8">
                 <div className="container mx-auto px-4 max-w-4xl">
-                    {/* Header */}
                     <div className="mb-8">
                         <button
                             onClick={handleCancel}
@@ -165,7 +163,6 @@ export default function EditBooking() {
                         <p className="text-gray-600 md:text-lg">Update your booking details</p>
                     </div>
 
-                    {/* Booking Info Card */}
                     <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
                         <div className="bg-blue-100 px-6 py-4 border-b border-gray-100">
                             <div className="flex items-center gap-3">
@@ -178,7 +175,6 @@ export default function EditBooking() {
                         </div>
 
                         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-                            {/* Error Message */}
                             {errors.submit && (
                                 <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                                     <div className="flex items-center gap-2">
@@ -188,9 +184,7 @@ export default function EditBooking() {
                                 </div>
                             )}
 
-                            {/* Date and Time Row */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {/* Booking Date */}
                                 <div>
                                     <label className="flex items-center gap-2 text-sm font-medium text-gray-900 mb-2">
                                         <Calendar className="w-4 h-4 text-blue-600" />
@@ -211,7 +205,6 @@ export default function EditBooking() {
                                     )}
                                 </div>
 
-                                {/* Booking Time */}
                                 <div>
                                     <label className="flex items-center gap-2 text-sm font-medium text-gray-900 mb-2">
                                         <Clock className="w-4 h-4 text-blue-600" />
@@ -232,7 +225,6 @@ export default function EditBooking() {
                                 </div>
                             </div>
 
-                            {/* Service Description */}
                             <div>
                                 <label className="flex items-center gap-2 text-sm font-medium text-gray-900 mb-2">
                                     <Edit3 className="w-4 h-4 text-blue-600" />
@@ -258,9 +250,7 @@ export default function EditBooking() {
                                 </div>
                             </div>
 
-                            {/* Location and Phone Row */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {/* Location */}
                                 <div>
                                     <label className="flex items-center gap-2 text-sm font-medium text-gray-900 mb-2">
                                         <MapPin className="w-4 h-4 text-blue-600" />
@@ -281,7 +271,6 @@ export default function EditBooking() {
                                     )}
                                 </div>
 
-                                {/* Phone Number */}
                                 <div>
                                     <label className="flex items-center gap-2 text-sm font-medium text-gray-900 mb-2">
                                         <Phone className="w-4 h-4 text-blue-600" />
@@ -303,7 +292,6 @@ export default function EditBooking() {
                                 </div>
                             </div>
 
-                            {/* Urgency */}
                             <div>
                                 <label className="flex items-center gap-2 text-sm font-medium text-gray-900 mb-2">
                                     <AlertCircle className="w-4 h-4 text-blue-600" />
@@ -327,7 +315,6 @@ export default function EditBooking() {
                                 )}
                             </div>
 
-                            {/* Action Buttons */}
                             <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
                                 <button
                                     type="button"
@@ -358,7 +345,6 @@ export default function EditBooking() {
                         </form>
                     </div>
 
-                    {/* Current Status Info */}
                     <div className="bg-white rounded-xl shadow-sm border border-gray-200">
                         <div className="p-6">
                             <h3 className="text-lg font-semibold text-gray-900 mb-4">Current Booking Status</h3>
