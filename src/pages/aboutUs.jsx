@@ -43,7 +43,6 @@ export default function AboutUs() {
         <div className="bg-blue-50 min-h-screen">
             <Navbar />
             
-            {/* Hero Section */}
             <section className="py-20 bg-gradient-to-r from-blue-800 to-blue-900 text-white">
                 <div className="container mx-auto px-4 text-center">
                     <h1 className="text-4xl md:text-5xl font-bold mb-6 mt-[30px]">About LocalFix</h1>
@@ -56,7 +55,6 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            {/* Introduction */}
             <section className="py-16 container mx-auto px-4">
                 <div className="max-w-5xl mx-auto">
                     <div className="text-center mb-16">
@@ -85,7 +83,6 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            {/* Value Propositions */}
             <section className="py-12 bg-blue-100">
                 <div className="container mx-auto px-4 flex flex-col items-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">What Makes Us Different</h2>
@@ -124,7 +121,6 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            {/* Mission/Vision Section */}
             <section className="py-16 container mx-auto px-4">
                 <div className="grid md:grid-cols-3 gap-8">
                     <div className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-blue-500 hover:shadow-xl hover:scale-103 duration-300">
@@ -153,7 +149,6 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            {/* Team Section */}
             <section className="py-16 bg-blue-50">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-12">
@@ -194,7 +189,6 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            {/* CTA Section */}
             <section className="py-12 bg-blue-500 text-white">
                 <div className="container mx-auto px-4 text-center">
                     <h2 className="text-3xl font-bold mb-4">Ready to Experience LocalFix?</h2>

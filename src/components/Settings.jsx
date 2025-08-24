@@ -61,7 +61,6 @@ export default function Settings() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               
-              {/* Profile Settings */}
               <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-blue-100/50 shadow-sm hover:bg-white/80 transition-all duration-300">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -77,7 +76,6 @@ export default function Settings() {
                 </p>
               </div>
 
-              {/* Notifications */}
               <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-blue-100/50 hover:bg-white/80 shadow-sm transition-all duration-300">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
@@ -93,7 +91,6 @@ export default function Settings() {
                 </p>
               </div>
 
-              {/* Privacy & Security */}
               <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-blue-100/50 shadow-sm hover:bg-white/80 transition-all duration-300">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -109,7 +106,6 @@ export default function Settings() {
                 </p>
               </div>
 
-              {/* Preferences */}
               <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-blue-100/50 shadow-sm hover:bg-white/80 transition-all duration-300">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
@@ -129,7 +125,6 @@ export default function Settings() {
           </div>
 
           <div className="bg-white/80 backdrop-blur-sm mt-4 rounded-2xl shadow-sm border border-red-100/50 overflow-hidden hover:shadow-xl transition-all duration-300">
-              {/* Header */}
              
               <div className="bg-gradient-to-r from-red-500 to-red-600 px-6 py-4">
                 <div className="flex items-center space-x-4">
@@ -142,7 +137,6 @@ export default function Settings() {
                   </div>
                 </div>
               </div>
-              {/* Content */}
               <div className="p-6">
                 <div className="bg-red-50 border border-red-200 rounded-xl p-6">
                   <div className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4">
@@ -167,7 +161,6 @@ export default function Settings() {
               </div>
             </div>
 
-          {/* Help Section */}
           <div className="mt-10 text-center">
             <div className="bg-white/60 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-blue-100/50">
               <h4 className="text-lg font-semibold text-blue-950 mb-2">Need Help?</h4>
@@ -182,7 +175,6 @@ export default function Settings() {
         </div>
 
 
-        {/* Delete Confirmation Modal */}
         {showDeleteConfirmation && (
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
